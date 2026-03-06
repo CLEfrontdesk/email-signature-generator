@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real Estate Email Signature Generator</title>
+  <style>
+    :root {
+      --text: #2f3a45;
+      --muted: #6a7580;
+      --line: #d9dfe6;
+      --panel: #f7f8fa;
+      --accent-dark: #55626f;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #eef2f5;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-card {
+      padding: 18px;
+      position: sticky;
+      top: 18px;
+      align-self: start;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+
+    .section {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section h2 {
+      margin: 0 0 10px;
+      font-size: 15px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin: 10px 0 6px;
+      color: var(--accent-dark);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cfd6dd;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #fff;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+
+    .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: var(--accent-dark);
+      color: white;
+    }
+
+    .secondary {
+      background: #e9edf1;
+      color: var(--text);
+    }
+
+    .preview-card {
+      padding: 18px;
+    }
+
+    .preview-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .preview-head h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .status {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .preview-shell {
+      background: var(--panel);
+      border: 1px dashed #c6d0d9;
+      border-radius: 14px;
+      padding: 16px;
+      overflow: auto;
+    }
+
+    .gmail-steps {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .small-note {
+      margin-top: 14px;
+      padding: 12px;
+      background: #f9fafb;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    @media (max-width: 980px) {
+      .wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .form-card {
+        position: static;
+        max-height: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card form-card">
+      <h1>Signature Generator</h1>
+      <div class="sub">
+        Fill in the fields, then use <strong>Copy Signature</strong> and paste it into Gmail signature settings.
+        Team members never need to touch HTML.
+      </div>
+
+      <div class="section">
+        <h2>Agent Details</h2>
+
+        <label for="fullName">Full Name</label>
+        <input id="fullName" value="Full Name" />
+
+        <label for="title">Title</label>
+        <input id="title" value="Realtor" />
+
+        <label for="tagline">Team / Brokerage</label>
+        <input id="tagline" value="Cliff Lewis Experience" />
+
+        <div class="row2">
+          <div>
+            <label for="cell">Cell Phone</label>
+            <input id="cell" value="000-000-0000" />
+          </div>
+          <div>
+            <label for="office">Office Phone</label>
+            <input id="office" value="610-936-9960" />
+          </div>
+        </div>
+
+        <label for="email">Email</label>
+        <input id="email" value="agent@cliffmlewis.com" />
+
+        <label for="website">Website URL</label>
+        <input id="website" value="https://clifflewisrealtor.com" />
+
+        <label for="websiteLabel">Website Label</label>
+        <input id="websiteLabel" value="CliffLewisRealtor.com" />
+
+        <label for="address">Address</label>
+        <input id="address" value="968 Postal Rd Suite 210, Allentown, PA 18109" />
+
+        <label for="mls">MLS / License Numbers</label>
+        <input id="mls" value="MLS# RS123456 | NMLS# 1234567" />
+        <div class="hint">Example: MLS# RS123456 | NMLS# 1234567 | NJ# 67890</div>
+      </div>
+
+      <div class="section">
+        <h2>Images</h2>
+
+        <label for="headshotUrl">Headshot Image URL</label>
+        <input id="headshotUrl" placeholder="https://..." />
+        <div class="hint">Best result: a square image around 400x400 or larger.</div>
+
+        <label for="headshotUpload">Or upload headshot</label>
+        <input id="headshotUpload" type="file" accept="image/*" />
+
+        <label for="companyLogoUrl">Company Logo URL</label>
+        <input id="companyLogoUrl" placeholder="https://..." />
+
+        <label for="secondaryLogoUrl">Secondary Logo URL</label>
+        <input id="secondaryLogoUrl" placeholder="https://..." />
+      </div>
+
+      <div class="section">
+        <h2>Social Links</h2>
+
+        <div class="row2">
+          <div>
+            <label for="facebook">Facebook URL</label>
+            <input id="facebook" placeholder="https://facebook.com/..." />
+          </div>
+          <div>
+            <label for="instagram">Instagram URL</label>
+            <input id="instagram" placeholder="https://instagram.com/..." />
+          </div>
+        </div>
+
+        <div class="row2">
+          <div>
+            <label for="linkedin">LinkedIn URL</label>
+            <input id="linkedin" placeholder="https://linkedin.com/in/..." />
+          </div>
+          <div>
+            <label for="youtube">YouTube URL</label>
+            <input id="youtube" placeholder="https://youtube.com/..." />
+          </div>
+        </div>
+
+        <div class="row2">
+          <div>
+            <label for="tiktok">TikTok URL</label>
+            <input id="tiktok" placeholder="https://tiktok.com/@..." />
+          </div>
+          <div>
+            <label for="x">X / Twitter URL</label>
+            <input id="x" placeholder="https://x.com/..." />
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="primary" id="generateBtn">Generate Signature</button>
+        <button class="secondary" id="copyBtn">Copy Signature</button>
+        <button class="secondary" id="downloadBtn">Download HTML</button>
+      </div>
+
+      <div class="small-note">
+        This version uses your real social icon image files. To add another platform later, add one new field and one new icon file.
+      </div>
+    </div>
+
+    <div class="card preview-card">
+      <div class="preview-head">
+        <div>
+          <h2>Live Preview</h2>
+          <div class="status">This preview updates when you click Generate Signature.</div>
+        </div>
+        <div class="btn-row" style="margin-top:0;">
+          <button class="primary" id="copyTopBtn">Copy Signature</button>
+        </div>
+      </div>
+
+      <div class="preview-shell">
+        <div id="signaturePreview"></div>
+      </div>
+
+      <div class="gmail-steps">
+        In Gmail: <strong>Settings → See all settings → General → Signature</strong>, create a new signature, paste it, then scroll down and click <strong>Save Changes</strong>.
+      </div>
+    </div>
+  </div>
+
+  <template id="signatureTemplate">
+    <table cellpadding="0" cellspacing="0" border="0" style="width: 680px; max-width: 680px; font-family: Arial, Helvetica, sans-serif; color: #39444f; border-collapse: collapse; background: #ffffff;">
+      <tr>
+        <td style="padding: 14px 18px; border: 1px solid #d8dee5; background: #f5f7f8;">
+          <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <td style="width: 130px; vertical-align: top; padding-right: 16px;">
+                <img data-field="headshot" alt="Headshot" style="display:block; width:120px; height:120px; border-radius:60px; object-fit:cover; background:#d9dfe6;" />
+              </td>
+              <td style="vertical-align: top;">
+                <div style="font-size:28px; line-height:1.05; font-weight:700; letter-spacing:0.2px; color:#5f6c79; text-transform:uppercase;" data-text="fullName"></div>
+                <div style="margin-top:6px; font-size:15px; line-height:1.3; color:#5a6672; font-weight:700;" data-text="title"></div>
+                <div style="margin-top:2px; font-size:13px; line-height:1.3; color:#7c8791;" data-text="tagline"></div>
+
+                <div style="margin-top:14px; font-size:13px; line-height:1.65; color:#4a5560;">
+                  <div><strong style="color:#5f6c79;">Cell:</strong> <a data-link="cell" style="color:#4a5560; text-decoration:none;"></a> &nbsp;&nbsp; <strong style="color:#5f6c79;">Office:</strong> <a data-link="office" style="color:#4a5560; text-decoration:none;"></a></div>
+                  <div><strong style="color:#5f6c79;">Email:</strong> <a data-link="email" style="color:#4a5560; text-decoration:none;"></a></div>
+                  <div><strong style="color:#5f6c79;">Web:</strong> <a data-link="website" target="_blank" style="color:#4a5560; text-decoration:none;"></a></div>
+                  <div><strong style="color:#5f6c79;">Address:</strong> <span data-text="address"></span></div>
+                  <div><strong style="color:#5f6c79;">Licenses:</strong> <span data-text="mls"></span></div>
+                </div>
+
+                <table cellpadding="0" cellspacing="0" border="0" style="margin-top:14px; border-collapse:collapse;">
+                  <tr>
+                    <td data-social-wrap="facebook" style="padding-right:8px;"></td>
+                    <td data-social-wrap="instagram" style="padding-right:8px;"></td>
+                    <td data-social-wrap="linkedin" style="padding-right:8px;"></td>
+                    <td data-social-wrap="youtube" style="padding-right:8px;"></td>
+                    <td data-social-wrap="tiktok" style="padding-right:8px;"></td>
+                    <td data-social-wrap="x"></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2" style="padding-top:16px;">
+                <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                  <tr>
+                    <td data-logo-wrap="company" style="padding-right:12px; vertical-align:middle;"></td>
+                    <td data-logo-wrap="secondary" style="vertical-align:middle;"></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </template>
+
+  <script>
+    const fields = {
+      fullName: document.getElementById('fullName'),
+      title: document.getElementById('title'),
+      tagline: document.getElementById('tagline'),
+      cell: document.getElementById('cell'),
+      office: document.getElementById('office'),
+      email: document.getElementById('email'),
+      website: document.getElementById('website'),
+      websiteLabel: document.getElementById('websiteLabel'),
+      address: document.getElementById('address'),
+      mls: document.getElementById('mls'),
+      headshotUrl: document.getElementById('headshotUrl'),
+      companyLogoUrl: document.getElementById('companyLogoUrl'),
+      secondaryLogoUrl: document.getElementById('secondaryLogoUrl'),
+      facebook: document.getElementById('facebook'),
+      instagram: document.getElementById('instagram'),
+      linkedin: document.getElementById('linkedin'),
+      youtube: document.getElementById('youtube'),
+      tiktok: document.getElementById('tiktok'),
+      x: document.getElementById('x')
+    };
+
+    const headshotUpload = document.getElementById('headshotUpload');
+    const preview = document.getElementById('signaturePreview');
+    let uploadedHeadshotDataUrl = '';
+
+    const socialIcons = {
+      facebook: 'facebook.png',
+      instagram: 'instagram.png',
+      linkedin: 'linkedin.png',
+      youtube: 'youtube.png',
+      tiktok: 'tiktok.png',
+      x: 'x.png'
+    };
+
+    function normalizeUrl(url) {
+      if (!url) return '';
+      if (/^https?:\/\//i.test(url)) return url;
+      return 'https://' + url;
+    }
+
+    function cleanPhone(phone) {
+      return (phone || '').replace(/[^\d+]/g, '');
+    }
+
+    function fallbackHeadshot(name) {
+      const initials = (name || 'A')
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(part => part[0].toUpperCase())
+        .join('');
+
+      const svg =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240">' +
+        '<rect width="100%" height="100%" fill="#d9dfe6"/>' +
+        '<text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="84" fill="#6b7885">' +
+        initials +
+        '</text></svg>';
+
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    }
+
+    function socialIcon(platform, href) {
+      return '<a href="' + href + '" target="_blank" style="display:inline-block; text-decoration:none;">' +
+        '<img src="' + socialIcons[platform] + '" alt="' + platform + '" width="24" height="24" style="display:block; width:24px; height:24px; border:0;">' +
+        '</a>';
+    }
+
+    function logoHtml(url, alt) {
+      if (!url) return '';
+      return '<img src="' + url + '" alt="' + alt + '" style="display:block; max-height:46px; width:auto;">';
+    }
+
+    function generateSignature() {
+      const frag = document.getElementById('signatureTemplate').content.cloneNode(true);
+      const shell = document.createElement('div');
+      shell.appendChild(frag);
+      const root = shell.firstElementChild;
+
+      root.querySelector('[data-text="fullName"]').textContent = fields.fullName.value || '';
+      root.querySelector('[data-text="title"]').textContent = fields.title.value || '';
+      root.querySelector('[data-text="tagline"]').textContent = fields.tagline.value || '';
+      root.querySelector('[data-text="address"]').textContent = fields.address.value || '';
+      root.querySelector('[data-text="mls"]').textContent = fields.mls.value || '';
+
+      const cellLink = root.querySelector('[data-link="cell"]');
+      cellLink.textContent = fields.cell.value || '';
+      cellLink.href = 'tel:' + cleanPhone(fields.cell.value);
+
+      const officeLink = root.querySelector('[data-link="office"]');
+      officeLink.textContent = fields.office.value || '';
+      officeLink.href = 'tel:' + cleanPhone(fields.office.value);
+
+      const emailLink = root.querySelector('[data-link="email"]');
+      emailLink.textContent = fields.email.value || '';
+      emailLink.href = 'mailto:' + (fields.email.value || '');
+
+      const websiteLink = root.querySelector('[data-link="website"]');
+      websiteLink.textContent = fields.websiteLabel.value || fields.website.value || '';
+      websiteLink.href = normalizeUrl(fields.website.value || '');
+
+      const headshot = root.querySelector('[data-field="headshot"]');
+      headshot.src = fields.headshotUrl.value || uploadedHeadshotDataUrl || fallbackHeadshot(fields.fullName.value);
+
+      ['facebook', 'instagram', 'linkedin', 'youtube', 'tiktok', 'x'].forEach(function(key) {
+        const url = normalizeUrl(fields[key].value);
+        const wrap = root.querySelector('[data-social-wrap="' + key + '"]');
+        if (url) {
+          wrap.innerHTML = socialIcon(key, url);
+        } else {
+          wrap.innerHTML = '';
+        }
+      });
+
+      root.querySelector('[data-logo-wrap="company"]').innerHTML = logoHtml(fields.companyLogoUrl.value, 'Company logo');
+      root.querySelector('[data-logo-wrap="secondary"]').innerHTML = logoHtml(fields.secondaryLogoUrl.value, 'Secondary logo');
+
+      preview.innerHTML = '';
+      preview.appendChild(root);
+    }
+
+    async function copySignature() {
+      if (!preview.firstElementChild) generateSignature();
+
+      const html = preview.innerHTML;
+      const text = preview.innerText;
+
+      try {
+        const item = new ClipboardItem({
+          'text/html': new Blob([html], { type: 'text/html' }),
+          'text/plain': new Blob([text], { type: 'text/plain' })
+        });
+        await navigator.clipboard.write([item]);
+        alert('Signature copied. Paste it into Gmail signature settings.');
+      } catch (err) {
+        const range = document.createRange();
+        range.selectNodeContents(preview);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand('copy');
+        selection.removeAllRanges();
+        alert('Signature copied. Paste it into Gmail signature settings.');
+      }
+    }
+
+    function downloadHtml() {
+      if (!preview.firstElementChild) generateSignature();
+      const html = '<!DOCTYPE html><html><body>' + preview.innerHTML + '</body></html>';
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'generated-signature.html';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    headshotUpload.addEventListener('change', function(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function() {
+        uploadedHeadshotDataUrl = reader.result;
+        fields.headshotUrl.value = '';
+        generateSignature();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    document.getElementById('generateBtn').addEventListener('click', generateSignature);
+    document.getElementById('copyBtn').addEventListener('click', copySignature);
+    document.getElementById('copyTopBtn').addEventListener('click', copySignature);
+    document.getElementById('downloadBtn').addEventListener('click', downloadHtml);
+
+    generateSignature();
+  </script>
+</body>
+</html>
