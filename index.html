@@ -264,8 +264,8 @@
  	 </label>
 
  	 <label style="display:flex; align-items:center; gap:8px; font-weight:normal;">
-  		  <input type="checkbox" id="logoExtra1" style="width:auto;">
-  		  Extra Logo 1
+  		  <input type="checkbox" id="logoBlueSky" style="width:auto;">
+  		  BlueSky Home Finance
 	  </label>
 
   	<label style="display:flex; align-items:center; gap:8px; font-weight:normal;">
@@ -408,6 +408,7 @@ logoCliffLewis: document.getElementById('logoCliffLewis'),
 logoColdwell: document.getElementById('logoColdwell'),
 logoExtra1: document.getElementById('logoExtra1'),
 logoExtra2: document.getElementById('logoExtra2'),
+logoBlueSky: document.getElementById('logoBlueSky'),
       facebook: document.getElementById('facebook'),
       instagram: document.getElementById('instagram'),
       linkedin: document.getElementById('linkedin'),
@@ -428,10 +429,10 @@ const availableLogos = {
     label: 'Coldwell Banker Hearthside Logo',
     file: 'https://clefrontdesk.github.io/email-signature-generator/coldwell-banker-hearthside.png'
   },
-  logoExtra1: {
-    label: 'Extra Logo 1',
-    file: 'extra-logo-1.png'
-  },
+logoBlueSky: {
+  label: 'BlueSky Home Finance',
+  file: 'https://clefrontdesk.github.io/email-signature-generator/BlueSky_HomeFinance_BLACK.png'
+},
   logoExtra2: {
     label: 'Extra Logo 2',
     file: 'extra-logo-2.png'
@@ -668,7 +669,7 @@ ctx.drawImage(
 [
   'logoCliffLewis',
   'logoColdwell',
-  'logoExtra1',
+ 'logoBlueSky',
   'logoExtra2'
 ].forEach(function(id) {
   const el = document.getElementById(id);
