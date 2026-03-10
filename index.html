@@ -347,18 +347,18 @@
   <template id="signatureTemplate">
     <table cellpadding="0" cellspacing="0" border="0" style="width: 680px; max-width: 680px; font-family: Arial, Helvetica, sans-serif; color: #39444f; border-collapse: collapse; background: #ffffff;">
       <tr>
-        <td style="padding: 14px 18px; border: 1px solid #d8dee5; background: #f5f7f8;">
+        <td style="padding: 10px 14px;">
           <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
             <tr>
             	 <td data-headshot-cell style="width: 130px; vertical-align: top; padding-right: 16px;">
  			 <img data-field="headshot" alt="Headshot" style="display:block; width:120px; height:120px; border-radius:60px; object-fit:cover; background:#d9dfe6;" />
 		</td>
 			<td data-content-cell style="vertical-align: top;">
-                <div style="font-size:28px; line-height:1.05; font-weight:700; letter-spacing:0.2px; color:#5f6c79; text-transform:uppercase;" data-text="fullName"></div>
-                <div style="margin-top:6px; font-size:15px; line-height:1.3; color:#5a6672; font-weight:700;" data-text="title"></div>
-                <div style="margin-top:2px; font-size:13px; line-height:1.3; color:#7c8791;" data-text="tagline"></div>
+                <div style="font-size:22px; line-height:1.05; font-weight:700; letter-spacing:0.2px; color:#5f6c79; text-transform:uppercase;" data-text="fullName"></div>
+                <div style="margin-top:3px; font-size:15px; line-height:1.3; color:#5a6672; font-weight:700;" data-text="title"></div>
+                <div style="margin-top:1px; font-size:13px; line-height:1.3; color:#7c8791;" data-text="tagline"></div>
 
-                <div style="margin-top:14px; font-size:13px; line-height:1.65; color:#4a5560;">
+                <div style="margin-top:8px; font-size:13px; line-height:1.45; color:#4a5560;">
                   <div><strong style="color:#5f6c79;">Cell:</strong> <a data-link="cell" style="color:#4a5560; text-decoration:none;"></a> &nbsp;&nbsp; <strong style="color:#5f6c79;">Office:</strong> <a data-link="office" style="color:#4a5560; text-decoration:none;"></a></div>
                   <div><strong style="color:#5f6c79;">Email:</strong> <a data-link="email" style="color:#4a5560; text-decoration:none;"></a></div>
                   <div><strong style="color:#5f6c79;">Web:</strong> <a data-link="website" target="_blank" style="color:#4a5560; text-decoration:none;"></a></div>
@@ -605,18 +605,49 @@ if (!logoRow.innerHTML.trim()) {
       URL.revokeObjectURL(url);
     }
 
-    headshotUpload.addEventListener('change', function(event) {
-      const file = event.target.files && event.target.files[0];
-      if (!file) return;
+  headshotUpload.addEventListener('change', function(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
 
-      const reader = new FileReader();
-      reader.onload = function() {
-        uploadedHeadshotDataUrl = reader.result;
-        fields.headshotUrl.value = '';
-        generateSignature();
-      };
-      reader.readAsDataURL(file);
-    });
+  const img = new Image();
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+    img.onload = function() {
+      const size = 120; // increased from 90
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = size;
+      canvas.height = size;
+
+      // Improve scaling quality
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+
+      // Crop to centered square
+      const srcSize = Math.min(img.width, img.height);
+      const sx = (img.width - srcSize) / 2;
+      const sy = (img.height - srcSize) / 2;
+
+      ctx.drawImage(
+        img,
+        sx, sy, srcSize, srcSize,
+        0, 0, size, size
+      );
+
+      // Better quality JPEG
+      uploadedHeadshotDataUrl = canvas.toDataURL('image/jpeg', 0.82);
+
+      fields.headshotUrl.value = '';
+      generateSignature();
+    };
+
+    img.src = e.target.result;
+  };
+
+  reader.readAsDataURL(file);
+});
 
     document.getElementById('generateBtn').addEventListener('click', generateSignature);
     document.getElementById('copyBtn').addEventListener('click', copySignature);
