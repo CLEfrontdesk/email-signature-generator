@@ -351,8 +351,8 @@
           <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
             <tr>
             	 <td data-headshot-cell style="width: 130px; vertical-align: top; padding-right: 16px;">
- 			 <img data-field="headshot" alt="Headshot" style="display:block; width:120px; height:120px; border-radius:60px; object-fit:cover; background:#d9dfe6;" />
-		</td>
+  <img data-field="headshot" alt="Headshot" style="display:block; width:120px; height:120px;" />
+</td>
 			<td data-content-cell style="vertical-align: top;">
                 <div style="font-size:22px; line-height:1.05; font-weight:700; letter-spacing:0.2px; color:#5f6c79; text-transform:uppercase;" data-text="fullName"></div>
                 <div style="margin-top:3px; font-size:15px; line-height:1.3; color:#5a6672; font-weight:700;" data-text="title"></div>
@@ -630,14 +630,25 @@ if (!logoRow.innerHTML.trim()) {
       const sx = (img.width - srcSize) / 2;
       const sy = (img.height - srcSize) / 2;
 
-      ctx.drawImage(
-        img,
-        sx, sy, srcSize, srcSize,
-        0, 0, size, size
-      );
+     ctx.beginPath();
+ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+ctx.closePath();
+ctx.clip();
+
+// create circular mask
+ctx.beginPath();
+ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+ctx.closePath();
+ctx.clip();
+
+ctx.drawImage(
+  img,
+  sx, sy, srcSize, srcSize,
+  0, 0, size, size
+);
 
       // Better quality JPEG
-      uploadedHeadshotDataUrl = canvas.toDataURL('image/jpeg', 0.82);
+    uploadedHeadshotDataUrl = canvas.toDataURL('image/png');
 
       fields.headshotUrl.value = '';
       generateSignature();
