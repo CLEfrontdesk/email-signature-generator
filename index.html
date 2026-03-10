@@ -422,11 +422,11 @@ logoExtra2: document.getElementById('logoExtra2'),
 const availableLogos = {
   logoCliffLewis: {
     label: 'Cliff Lewis Experience Logo',
-    file: 'cliff-lewis-experience.png'
+    file: 'https://clefrontdesk.github.io/email-signature-generator/cliff-lewis-experience.png'
   },
   logoColdwell: {
     label: 'Coldwell Banker Hearthside Logo',
-    file: 'coldwell-banker-hearthside.png'
+    file: 'https://clefrontdesk.github.io/email-signature-generator/coldwell-banker-hearthside.png'
   },
   logoExtra1: {
     label: 'Extra Logo 1',
@@ -437,14 +437,14 @@ const availableLogos = {
     file: 'extra-logo-2.png'
   }
 };
-    const socialIcons = {
-      facebook: 'facebook.png',
-      instagram: 'instagram.png',
-      linkedin: 'linkedin.png',
-      youtube: 'youtube.png',
-      tiktok: 'tiktok.png',
-      x: 'x.png'
-    };
+   const socialIcons = {
+  facebook: 'https://clefrontdesk.github.io/email-signature-generator/facebook.png',
+  instagram: 'https://clefrontdesk.github.io/email-signature-generator/instagram.png',
+  linkedin: 'https://clefrontdesk.github.io/email-signature-generator/linkedin.png',
+  youtube: 'https://clefrontdesk.github.io/email-signature-generator/youtube.png',
+  tiktok: 'https://clefrontdesk.github.io/email-signature-generator/tiktok.png',
+  x: 'https://clefrontdesk.github.io/email-signature-generator/x.png'
+};
 
     function normalizeUrl(url) {
       if (!url) return '';
@@ -614,6 +614,18 @@ if (!logoRow.innerHTML.trim()) {
     document.getElementById('copyBtn').addEventListener('click', copySignature);
     document.getElementById('copyTopBtn').addEventListener('click', copySignature);
     document.getElementById('downloadBtn').addEventListener('click', downloadHtml);
+
+[
+  'logoCliffLewis',
+  'logoColdwell',
+  'logoExtra1',
+  'logoExtra2'
+].forEach(function(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.addEventListener('change', generateSignature);
+  }
+});
 
     generateSignature();
   </script>
