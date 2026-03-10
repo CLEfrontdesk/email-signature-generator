@@ -363,7 +363,7 @@
                   <div><strong style="color:#5f6c79;">Email:</strong> <a data-link="email" style="color:#4a5560; text-decoration:none;"></a></div>
                   <div><strong style="color:#5f6c79;">Web:</strong> <a data-link="website" target="_blank" style="color:#4a5560; text-decoration:none;"></a></div>
                   <div><strong style="color:#5f6c79;">Address:</strong> <span data-text="address"></span></div>
-                  <div><strong style="color:#5f6c79;">Licenses:</strong> <span data-text="mls"></span></div>
+                  <div data-mls-row><strong style="color:#5f6c79;">Licenses:</strong> <span data-text="mls"></span></div>
                 </div>
 
                 <table cellpadding="0" cellspacing="0" border="0" style="margin-top:14px; border-collapse:collapse;">
@@ -505,7 +505,15 @@ function selectedLogosHtml() {
       root.querySelector('[data-text="title"]').textContent = fields.title.value || '';
       root.querySelector('[data-text="tagline"]').textContent = fields.tagline.value || '';
       root.querySelector('[data-text="address"]').textContent = fields.address.value || '';
-      root.querySelector('[data-text="mls"]').textContent = fields.mls.value || '';
+      const mlsRow = root.querySelector('[data-mls-row]');
+const mlsValue = fields.mls.value.trim();
+
+if (mlsValue) {
+  root.querySelector('[data-text="mls"]').textContent = mlsValue;
+  mlsRow.style.display = '';
+} else {
+  mlsRow.style.display = 'none';
+}
 
       const cellLink = root.querySelector('[data-link="cell"]');
       cellLink.textContent = fields.cell.value || '';
