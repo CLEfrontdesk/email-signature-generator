@@ -188,6 +188,7 @@
       }
     }
   </style>
+
 </head>
 <body>
   <div class="wrap">
@@ -247,6 +248,13 @@
 
         <label for="headshotUpload">Or upload headshot</label>
         <input id="headshotUpload" type="file" accept="image/*" />
+
+<label for="headshotShape">Headshot Shape</label>
+<select id="headshotShape">
+  <option value="circle" selected>Circle</option>
+  <option value="square">Square</option>
+</select>
+<div class="hint">Choose whether the headshot appears as a circle or square.</div>
         </div>
 
 	<div class="section">
@@ -315,16 +323,28 @@
         </div>
       </div>
 
+<div class="section">
+  <h2>Buttons</h2>
+
+  <label for="homeWorthLink">Home Worth Fello Link</label>
+  <input id="homeWorthLink" placeholder="Paste Your Fello Link" />
+  <div class="hint">Required. Agents can replace this with their own Fello link if needed.</div>
+
+  <label for="appointmentLink">Schedule Appointment Link</label>
+  <input id="appointmentLink" placeholder="https://..." />
+  
+</div>
+
       <div class="btn-row">
         <button class="primary" id="generateBtn">Generate Signature</button>
         <button class="secondary" id="copyBtn">Copy Signature</button>
         <button class="secondary" id="downloadBtn">Download HTML</button>
       </div>
 
-      <div class="small-note">
+      <!--<div class="small-note">
         This version uses your real social icon image files. To add another platform later, add one new field and one new icon file.
-      </div>
-    </div>
+      </div> -->
+    </div> 
 
     <div class="card preview-card">
       <div class="preview-head">
@@ -414,6 +434,12 @@
     </div>
   </td>
 </tr>
+
+<tr>
+  <td colspan="2" style="padding-top:14px;">
+    <div data-cta-row></div>
+  </td>
+</tr>
           </table>
         </td>
       </tr>
@@ -433,6 +459,7 @@
       address: document.getElementById('address'),
       mls: document.getElementById('mls'),
       headshotUrl: document.getElementById('headshotUrl'),
+headshotShape: document.getElementById('headshotShape'),
 logoCliffLewis: document.getElementById('logoCliffLewis'),
 logoColdwell: document.getElementById('logoColdwell'),
 logoExtra1: document.getElementById('logoExtra1'),
@@ -443,12 +470,15 @@ logoBlueSky: document.getElementById('logoBlueSky'),
       linkedin: document.getElementById('linkedin'),
       youtube: document.getElementById('youtube'),
       tiktok: document.getElementById('tiktok'),
+homeWorthLink: document.getElementById('homeWorthLink'),
+appointmentLink: document.getElementById('appointmentLink'),
       x: document.getElementById('x')
     };
 
     const headshotUpload = document.getElementById('headshotUpload');
     const preview = document.getElementById('signaturePreview');
-    let uploadedHeadshotDataUrl = '';
+let uploadedHeadshotDataUrl = '';
+let originalHeadshotDataUrl = '';
 const availableLogos = {
   logoCliffLewis: {
     label: 'Cliff Lewis Experience Logo',
@@ -509,7 +539,31 @@ logoExtra1: {
     '<img src="' + socialIcons[platform] + '" alt="' + platform + '" width="24" height="24" style="display:block; width:24px; height:24px; border:0;">' +
     '</a>';
 }
+function ctaButtonsHtml() {
+  const homeWorthUrl = normalizeUrl(fields.homeWorthLink.value);
+  const appointmentUrl = normalizeUrl(fields.appointmentLink.value);
 
+  let html = '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">';
+
+  if (homeWorthUrl) {
+    html += '<tr>' +
+      '<td style="padding-top:10px;">' +
+      '<a href="' + homeWorthUrl + '" target="_blank" style="display:inline-block; background:#152c60; color:#ffffff; text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:600; line-height:1.2; padding:16px 20px; border-radius:5px; ">Curious What Your Home is Worth?</a>' +
+      '</td>' +
+      '</tr>';
+  }
+
+  if (appointmentUrl) {
+    html += '<tr>' +
+      '<td style="padding-top:10px;">' +
+      '<a href="' + appointmentUrl + '" target="_blank" style="display:inline-block; background:#152c60; color:#ffffff; text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:700; line-height:1.2; padding:16px 20px; border-radius:5px; ">Schedule an Appointment</a>' +
+      '</td>' +
+      '</tr>';
+  }
+
+  html += '</table>';
+  return html;
+}
     function logoHtml(url, alt) {
       if (!url) return '';
       return '<img src="' + url + '" alt="' + alt + '" style="display:block; max-height:46px; width:auto;">';
@@ -530,7 +584,14 @@ function selectedLogosHtml() {
       const shell = document.createElement('div');
       shell.appendChild(frag);
       const root = shell.firstElementChild;
+const ctaRow = root.querySelector('[data-cta-row]');
+ctaRow.innerHTML = ctaButtonsHtml();
 
+if (!ctaRow.innerText.trim()) {
+  ctaRow.parentElement.style.display = 'none';
+} else {
+  ctaRow.parentElement.style.display = '';
+}
       root.querySelector('[data-text="fullName"]').textContent = fields.fullName.value || '';
       root.querySelector('[data-text="title"]').textContent = fields.title.value || '';
       root.querySelector('[data-text="tagline"]').textContent = fields.tagline.value || '';
@@ -635,56 +696,96 @@ if (!logoRow.innerHTML.trim()) {
       URL.revokeObjectURL(url);
     }
 
-  headshotUpload.addEventListener('change', function(event) {
+function processHeadshotImage(sourceDataUrl) {
+  const img = new Image();
+
+  img.onload = function() {
+    const size = 100;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = size;
+    canvas.height = size;
+
+    const srcSize = Math.min(img.width, img.height);
+    const sx = (img.width - srcSize) / 2;
+    const sy = (img.height - srcSize) / 2;
+
+    ctx.clearRect(0, 0, size, size);
+
+    const shape = fields.headshotShape.value;
+
+    if (shape === 'circle') {
+      ctx.beginPath();
+      ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.clip();
+    }
+
+    ctx.drawImage(
+      img,
+      sx, sy, srcSize, srcSize,
+      0, 0, size, size
+    );
+
+    uploadedHeadshotDataUrl = canvas.toDataURL('image/png');
+    fields.headshotUrl.value = '';
+    generateSignature();
+  };
+
+  img.src = sourceDataUrl;
+}
+function processHeadshotImage(sourceDataUrl) {
+  const img = new Image();
+
+  img.onload = function() {
+    const size = 120;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = size;
+    canvas.height = size;
+
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    const srcSize = Math.min(img.width, img.height);
+    const sx = (img.width - srcSize) / 2;
+    const sy = (img.height - srcSize) / 2;
+
+    ctx.clearRect(0, 0, size, size);
+
+    const shape = fields.headshotShape.value;
+
+    if (shape === 'circle') {
+      ctx.beginPath();
+      ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.clip();
+    }
+
+    ctx.drawImage(
+      img,
+      sx, sy, srcSize, srcSize,
+      0, 0, size, size
+    );
+
+    uploadedHeadshotDataUrl = canvas.toDataURL('image/png');
+    fields.headshotUrl.value = '';
+    generateSignature();
+  };
+
+  img.src = sourceDataUrl;
+}
+ headshotUpload.addEventListener('change', function(event) {
   const file = event.target.files && event.target.files[0];
   if (!file) return;
 
-  const img = new Image();
   const reader = new FileReader();
 
   reader.onload = function(e) {
-    img.onload = function() {
-      const size = 120; // increased from 90
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-
-      canvas.width = size;
-      canvas.height = size;
-
-      // Improve scaling quality
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-
-      // Crop to centered square
-      const srcSize = Math.min(img.width, img.height);
-      const sx = (img.width - srcSize) / 2;
-      const sy = (img.height - srcSize) / 2;
-
-     ctx.beginPath();
-ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
-ctx.closePath();
-ctx.clip();
-
-// create circular mask
-ctx.beginPath();
-ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
-ctx.closePath();
-ctx.clip();
-
-ctx.drawImage(
-  img,
-  sx, sy, srcSize, srcSize,
-  0, 0, size, size
-);
-
-      // Better quality JPEG
-    uploadedHeadshotDataUrl = canvas.toDataURL('image/png');
-
-      fields.headshotUrl.value = '';
-      generateSignature();
-    };
-
-    img.src = e.target.result;
+    originalHeadshotDataUrl = e.target.result;
+    processHeadshotImage(originalHeadshotDataUrl);
   };
 
   reader.readAsDataURL(file);
@@ -694,6 +795,13 @@ ctx.drawImage(
     document.getElementById('copyBtn').addEventListener('click', copySignature);
     document.getElementById('copyTopBtn').addEventListener('click', copySignature);
     document.getElementById('downloadBtn').addEventListener('click', downloadHtml);
+document.getElementById('headshotShape').addEventListener('change', function() {
+  if (originalHeadshotDataUrl) {
+    processHeadshotImage(originalHeadshotDataUrl);
+  } else {
+    generateSignature();
+  }
+});
 
 [
   'logoCliffLewis',
