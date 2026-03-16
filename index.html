@@ -207,6 +207,7 @@
 
         <label for="title">Title</label>
         <input id="title" value="Realtor" />
+	<input id="title2" placeholder="Other" />
 
         <label for="tagline">Team / Brokerage</label>
         <input id="tagline" value="Cliff Lewis Experience" />
@@ -379,6 +380,7 @@
 			<td data-content-cell style="vertical-align: top;">
                 <div style="font-size:22px; line-height:1.05; font-weight:700; letter-spacing:0.2px; color:#5f6c79; text-transform:uppercase;" data-text="fullName"></div>
                 <div style="margin-top:3px; font-size:15px; line-height:1.3; color:#5a6672; font-weight:700;" data-text="title"></div>
+		<div style="margin-top:1px; font-size:15px; line-height:1; color:#5a6672; font-weight:700;" data-text="title2"></div>
                 <div style="margin-top:1px; font-size:13px; line-height:1.3; color:#7c8791;" data-text="tagline"></div>
 
                 <div style="margin-top:8px; font-size:13px; line-height:1.45; color:#4a5560;">
@@ -450,6 +452,7 @@
     const fields = {
       fullName: document.getElementById('fullName'),
       title: document.getElementById('title'),
+	title2: document.getElementById('title2'),
       tagline: document.getElementById('tagline'),
       cell: document.getElementById('cell'),
       office: document.getElementById('office'),
@@ -459,19 +462,19 @@
       address: document.getElementById('address'),
       mls: document.getElementById('mls'),
       headshotUrl: document.getElementById('headshotUrl'),
-headshotShape: document.getElementById('headshotShape'),
-logoCliffLewis: document.getElementById('logoCliffLewis'),
-logoColdwell: document.getElementById('logoColdwell'),
-logoExtra1: document.getElementById('logoExtra1'),
-logoExtra2: document.getElementById('logoExtra2'),
-logoBlueSky: document.getElementById('logoBlueSky'),
+	headshotShape: document.getElementById('headshotShape'),
+	logoCliffLewis: document.getElementById('logoCliffLewis'),
+	logoColdwell: document.getElementById('logoColdwell'),
+	logoExtra1: document.getElementById('logoExtra1'),
+	logoExtra2: document.getElementById('logoExtra2'),
+	logoBlueSky: document.getElementById('logoBlueSky'),
       facebook: document.getElementById('facebook'),
       instagram: document.getElementById('instagram'),
       linkedin: document.getElementById('linkedin'),
       youtube: document.getElementById('youtube'),
       tiktok: document.getElementById('tiktok'),
-homeWorthLink: document.getElementById('homeWorthLink'),
-appointmentLink: document.getElementById('appointmentLink'),
+	homeWorthLink: document.getElementById('homeWorthLink'),
+	appointmentLink: document.getElementById('appointmentLink'),
       x: document.getElementById('x')
     };
 
@@ -594,6 +597,13 @@ if (!ctaRow.innerText.trim()) {
 }
       root.querySelector('[data-text="fullName"]').textContent = fields.fullName.value || '';
       root.querySelector('[data-text="title"]').textContent = fields.title.value || '';
+	root.querySelector('[data-text="title2"]').textContent = fields.title2.value || '';
+		const title2El = root.querySelector('[data-text="title2"]');
+		if (!fields.title2.value.trim()) {
+ 		 title2El.style.display = 'none';
+		} else {
+	  	 title2El.style.display = '';
+		}
       root.querySelector('[data-text="tagline"]').textContent = fields.tagline.value || '';
       root.querySelector('[data-text="address"]').textContent = fields.address.value || '';
       const mlsRow = root.querySelector('[data-mls-row]');
