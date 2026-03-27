@@ -79,7 +79,7 @@
       color: var(--accent-dark);
     }
 
-    input {
+    input, textarea, select {
       width: 100%;
       padding: 10px 12px;
       border: 1px solid #cfd6dd;
@@ -87,6 +87,11 @@
       font-size: 14px;
       font-family: inherit;
       background: #fff;
+    }
+
+    textarea {
+      min-height: 64px;
+      resize: vertical;
     }
 
     .hint {
@@ -177,6 +182,39 @@
       color: var(--text);
     }
 
+    #headshotResults {
+      margin-top: 8px;
+      max-height: 180px;
+      overflow: auto;
+      border: 1px solid #cfd6dd;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .headshot-result {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border: none;
+      border-bottom: 1px solid #eef2f5;
+      background: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .headshot-result:last-child {
+      border-bottom: none;
+    }
+
+    .headshot-result:hover {
+      background: #f7f8fa;
+    }
+
+    
     @media (max-width: 980px) {
       .wrap {
         grid-template-columns: 1fr;
@@ -188,15 +226,13 @@
       }
     }
   </style>
-
 </head>
 <body>
   <div class="wrap">
     <div class="card form-card">
       <h1>Signature Generator</h1>
       <div class="sub">
-        Fill in the fields, then use <strong>Copy Signature</strong> and paste it into Gmail signature settings.
-        Team members never need to touch HTML.
+        Fill in the fields, then use <strong>Copy Signature</strong> and paste it into Gmail, FUB, or Fello.
       </div>
 
       <div class="section">
@@ -207,18 +243,20 @@
 
         <label for="title">Title</label>
         <input id="title" value="Realtor" />
-	<input id="title2" placeholder="Other" />
 
-        <label for="tagline">Team / Brokerage</label>
+        <label for="title2">Second Title</label>
+        <input id="title2" placeholder="Optional second title" />
+
+        <label for="tagline">Optional Subtitle / Team / Slogan</label>
         <input id="tagline" value="Cliff Lewis Experience" />
 
         <div class="row2">
           <div>
-            <label for="cell">Cell Phone</label>
+            <label for="cell">Cell</label>
             <input id="cell" value="000-000-0000" />
           </div>
           <div>
-            <label for="office">Office Phone</label>
+            <label for="office">Office</label>
             <input id="office" value="610-936-9960" />
           </div>
         </div>
@@ -236,56 +274,61 @@
         <input id="address" value="968 Postal Rd Suite 210, Allentown, PA 18109" />
 
         <label for="mls">MLS / License Numbers</label>
-        <input id="mls" value="MLS# RS123456 | NMLS# 1234567" />
-        <div class="hint">Example: MLS# RS123456 | NMLS# 1234567 | NJ# 67890</div>
+        <input id="mls" value="MLS# RS123456 | PA Lic# AB098765" />
+        <div class="hint">Leave blank if not needed. For multiple regions, separate with vertical bars.</div>
       </div>
 
       <div class="section">
-        <h2>Images</h2>
+        <h2>Headshot</h2>
 
-        <label for="headshotUrl">Headshot Image URL</label>
-        <input id="headshotUrl" placeholder="https://..." />
-        <div class="hint">Best result: a square image around 400x400 or larger.</div>
+        <label for="headshotSearch">Choose Your Headshot</label>
+        <input id="headshotSearch" type="text" placeholder="Start typing your name..." />
 
-        <label for="headshotUpload">Or upload headshot</label>
-        <input id="headshotUpload" type="file" accept="image/*" />
-
-<label for="headshotShape">Headshot Shape</label>
-<select id="headshotShape">
-  <option value="circle" selected>Circle</option>
-  <option value="square">Square</option>
-</select>
-<div class="hint">Choose whether the headshot appears as a circle or square.</div>
+        <div id="headshotResults">
+          <div style="padding:10px; font-size:13px; color:#6a7580;">Loading headshots...</div>
         </div>
 
-	<div class="section">
-  <h2>Company Logos</h2>
-	<div class="hint">Check the logos you want to show at the bottom of your signature.</div>
-	
- 	 <label style="display:flex; align-items:center; gap:8px; font-weight:normal;">
-    		<input type="checkbox" id="logoCliffLewis" style="width:auto;">
-  		  Cliff Lewis Experience Logo
-  	</label>
+        <div id="selectedHeadshotName" class="hint" style="margin-top:8px;">No headshot selected.</div>
 
- 	 <label style="display:flex; align-items:center; gap:8px; font-weight:normal;">
-   		 <input type="checkbox" id="logoColdwell" style="width:auto;">
-   		 Coldwell Banker Hearthside Logo
- 	 </label>
+        <label for="headshotShape">Headshot Shape</label>
+        <select id="headshotShape">
+          <option value="circle" selected>Circle</option>
+          <option value="square">Square</option>
+        </select>
 
- 	 <label style="display:flex; align-items:center; gap:8px; font-weight:normal;">
-  		  <input type="checkbox" id="logoBlueSky" style="width:auto;">
-  		  BlueSky Home Finance
-	  </label>
+        <input id="headshotUrl" type="hidden" />
+      </div>
 
+      <div class="section">
+        <h2>Company Logos</h2>
 
-<!-- Future logo option (hidden for now)
-  	<label style="display:flex; align-items:center; gap:8px; font-weight:normal;">
-   		 <input type="checkbox" id="logoExtra2" style="width:auto;">
-   		 Extra Logo 2
- 	 </label>
--->
+        <label style="display:flex; align-items:center; gap:8px; font-weight:normal;">
+          <input type="checkbox" id="logoCliffLewis" style="width:auto;">
+          Cliff Lewis Experience Logo
+        </label>
 
- 	</div> 
+        <label style="display:flex; align-items:center; gap:8px; font-weight:normal;">
+          <input type="checkbox" id="logoColdwell" style="width:auto;">
+          Coldwell Banker Hearthside Logo
+        </label>
+
+        <label style="display:flex; align-items:center; gap:8px; font-weight:normal;">
+          <input type="checkbox" id="logoBlueSky" style="width:auto;">
+          BlueSky Home Finance
+        </label>
+
+        <!-- Future logo options can be re-enabled later.
+        <label style="display:flex; align-items:center; gap:8px; font-weight:normal;">
+          <input type="checkbox" id="logoExtra1" style="width:auto;">
+          Extra Logo 1
+        </label>
+
+        <label style="display:flex; align-items:center; gap:8px; font-weight:normal;">
+          <input type="checkbox" id="logoExtra2" style="width:auto;">
+          Extra Logo 2
+        </label>
+        -->
+      </div>
 
       <div class="section">
         <h2>Social Links</h2>
@@ -324,28 +367,27 @@
         </div>
       </div>
 
-<div class="section">
-  <h2>Buttons</h2>
+      <div class="section">
+        <h2>Call-To-Action Buttons</h2>
 
-  <label for="homeWorthLink">Home Worth Fello Link</label>
-  <input id="homeWorthLink" value="https://clifflewisrealtor.hifello.com/lp/69b814f94890ea28ee126185" />
-  <div class="hint">Required. Agents can replace this with their own Fello link if needed.</div>
+        <label for="homeWorthLink">Home Worth Button Link</label>
+        <input id="homeWorthLink" value="https://clifflewisrealtor.hifello.com/lp/69b814f94890ea28ee126185" />
+        <div class="hint">Required. Agents can replace this with their own Fello link if needed.</div>
 
-  <label for="appointmentLink">Schedule Appointment Link</label>
-  <input id="appointmentLink" placeholder="https://..." />
-  
-</div>
+        <label for="appointmentLink">Schedule Appointment Link</label>
+        <input id="appointmentLink" placeholder="https://..." />
+        <div class="hint">Optional. If left blank, the appointment button will not appear.</div>
+      </div>
 
       <div class="btn-row">
         <button class="primary" id="generateBtn">Generate Signature</button>
         <button class="secondary" id="copyBtn">Copy Signature</button>
-        <button class="secondary" id="downloadBtn">Download HTML</button>
       </div>
 
-      <!--<div class="small-note">
-        This version uses your real social icon image files. To add another platform later, add one new field and one new icon file.
-      </div> -->
-    </div> 
+      <div class="small-note">
+        Headshots now come from the company headshot library in Google Drive. This is more stable for Gmail and CRMs than uploading from a computer.
+      </div>
+    </div>
 
     <div class="card preview-card">
       <div class="preview-head">
@@ -369,79 +411,53 @@
   </div>
 
   <template id="signatureTemplate">
-    <table cellpadding="0" cellspacing="0" border="0" style="width: 680px; max-width: 680px; font-family: Arial, Helvetica, sans-serif; color: #39444f; border-collapse: collapse; background: #ffffff;">
+    <table cellpadding="0" cellspacing="0" border="0" style="width:680px; max-width:680px; font-family:Arial, Helvetica, sans-serif; color:#39444f; border-collapse:collapse; background:#ffffff;">
       <tr>
-        <td style="padding: 10px 14px;">
-          <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
+        <td style="padding:10px 14px;">
+          <table cellpadding="0" cellspacing="0" border="0" style="width:100%; border-collapse:collapse;">
             <tr>
-            	 <td data-headshot-cell style="width: 130px; vertical-align: top; padding-right: 16px;">
-  <img data-field="headshot" alt="Headshot" style="display:block; width:120px; height:120px;" />
-</td>
-			<td data-content-cell style="vertical-align: top;">
+              <td data-headshot-cell style="width:130px; vertical-align:top; padding-right:16px;">
+                <img data-field="headshot" alt="Headshot" style="display:block; width:120px; height:120px;" />
+              </td>
+              <td data-content-cell style="vertical-align:top;">
                 <div style="font-size:22px; line-height:1.05; font-weight:700; letter-spacing:0.2px; color:#5f6c79; text-transform:uppercase;" data-text="fullName"></div>
                 <div style="margin-top:3px; font-size:15px; line-height:1.3; color:#5a6672; font-weight:700;" data-text="title"></div>
-		<div style="margin-top:1px; font-size:15px; line-height:1.3; color:#5a6672; font-weight:700;" data-text="title2"></div>
+                <div data-title2-row style="margin-top:1px; font-size:14px; line-height:1.3; color:#5a6672;" data-text="title2"></div>
                 <div style="margin-top:1px; font-size:13px; line-height:1.3; color:#7c8791;" data-text="tagline"></div>
 
                 <div style="margin-top:8px; font-size:13px; line-height:1.45; color:#4a5560;">
-                  <div><strong style="color:#5f6c79;">Cell:</strong> <a data-link="cell" style="color:#4a5560; text-decoration:none;"></a> &nbsp;&nbsp; <strong style="color:#5f6c79;">Office:</strong> <a data-link="office" style="color:#4a5560; text-decoration:none;"></a></div>
+                  <div><strong style="color:#5f6c79;">Cell:</strong> <a data-link="cell" style="color:#4a5560; text-decoration:none;"></a> &nbsp; <strong style="color:#5f6c79;">Office:</strong> <a data-link="office" style="color:#4a5560; text-decoration:none;"></a></div>
                   <div><strong style="color:#5f6c79;">Email:</strong> <a data-link="email" style="color:#4a5560; text-decoration:none;"></a></div>
                   <div><strong style="color:#5f6c79;">Web:</strong> <a data-link="website" target="_blank" style="color:#4a5560; text-decoration:none;"></a></div>
-                  <div><strong style="color:#5f6c79;">Address:</strong> <span data-text="address"></span></div>
+                  <div data-address-row><strong style="color:#5f6c79;">Address:</strong> <span data-text="address"></span></div>
                   <div data-mls-row><strong style="color:#5f6c79;">Licenses:</strong> <span data-text="mls"></span></div>
                 </div>
 
-                <table cellpadding="0" cellspacing="0" border="0" style="margin-top:14px; border-collapse:collapse;">
-                  <tr>
-                   <td data-social-wrap="facebook"></td>
-<td data-social-wrap="instagram"></td>
-<td data-social-wrap="linkedin"></td>
-<td data-social-wrap="youtube"></td>
-<td data-social-wrap="tiktok"></td>
-<td data-social-wrap="x"></td>
-                  </tr>
-                </table>
+                <div data-social-row style="margin-top:14px;"></div>
               </td>
             </tr>
 
-           <tr>
-  <td colspan="2" style="padding-top:16px;">
-    <div data-logo-row></div>
-  </td>
-</tr>
-<tr>
-  <td colspan="2" style="padding-top:12px;">
-    <div style="font-size:8px; line-height:1.4; color:#6b7280; font-family:Arial, Helvetica, sans-serif; max-width:640px;">
-      <p style="margin:6px 0;">
-        <strong>Please note:</strong> If you do not wish to receive further emails from us, please reply to this message with the word
-        <strong>Remove</strong> in the email subject or body, and you will be removed from our mailing list.
-      </p>
+            <tr>
+              <td colspan="2" style="padding-top:16px;">
+                <div data-logo-row></div>
+              </td>
+            </tr>
 
-      <p style="margin:6px 0;">
-        ANY TERMS AND CONDITIONS, INDICATIONS OF OFFERS OR INDICATIONS OF ACCEPTANCES, RELATING TO A REAL ESTATE TRANSACTION
-        CONTAINED IN THIS COMMUNICATION IS BEING PROVIDED FOR NEGOTIATION PURPOSES ONLY AND DOES NOT FORM THE BASIS OF A
-        CONTRACT. NEITHER PARTY SHALL BE BOUND UNLESS AND UNTIL THE PARTIES ENTER INTO A FORMAL WRITTEN AGREEMENT OF SALE AND
-        HAND-SIGNED BY THE PARTIES TO THE TRANSACTION.
-      </p>
+            <tr>
+              <td colspan="2" style="padding-top:12px;">
+                <div style="font-size:9px; line-height:1.4; color:#6b7280; font-family:Arial, Helvetica, sans-serif; max-width:640px;">
+                  <p style="margin:6px 0;"><strong>Please note:</strong> If you do not wish to receive further emails from us, please reply to this message with the word <strong>Remove</strong> in the email subject or body, and you will be removed from our mailing list.</p>
+                  <p style="margin:6px 0;">ANY TERMS AND CONDITIONS, INDICATIONS OF OFFERS OR INDICATIONS OF ACCEPTANCES, RELATING TO A REAL ESTATE TRANSACTION CONTAINED IN THIS COMMUNICATION IS BEING PROVIDED FOR NEGOTIATION PURPOSES ONLY AND DOES NOT FORM THE BASIS OF A CONTRACT. NEITHER PARTY SHALL BE BOUND UNLESS AND UNTIL THE PARTIES ENTER INTO A FORMAL WRITTEN AGREEMENT OF SALE AND HAND-SIGNED BY THE PARTIES TO THE TRANSACTION.</p>
+                  <p style="margin:6px 0;"><strong>Consumer Notice:</strong><br>The Real Estate Law requires that I provide you with a written consumer notice that describes the various business relationship choices that you may have with a real estate licensee. If we are discussing real estate without your having the benefit of the consumer notice, I have the duty to advise you that any information you give me at this time is not considered to be confidential unless and until you and I enter into a business relationship. At our first meeting I will provide you with a written consumer notice which explains those business relationships and my corresponding duties to you.</p>
+                </div>
+              </td>
+            </tr>
 
-      <p style="margin:6px 0;">
-        <strong>Consumer Notice:</strong><br>
-        The Real Estate Law requires that I provide you with a written consumer notice that describes the various business
-        relationship choices that you may have with a real estate licensee. If we are discussing real estate without your
-        having the benefit of the consumer notice, I have the duty to advise you that any information you give me at this
-        time is not considered to be confidential unless and until you and I enter into a business relationship. At our
-        first meeting I will provide you with a written consumer notice which explains those business relationships and my
-        corresponding duties to you.
-      </p>
-    </div>
-  </td>
-</tr>
-
-<tr>
-  <td colspan="2" style="padding-top:14px;">
-    <div data-cta-row></div>
-  </td>
-</tr>
+            <tr>
+              <td colspan="2" style="padding-top:14px;">
+                <div data-cta-row></div>
+              </td>
+            </tr>
           </table>
         </td>
       </tr>
@@ -452,7 +468,7 @@
     const fields = {
       fullName: document.getElementById('fullName'),
       title: document.getElementById('title'),
-	title2: document.getElementById('title2'),
+      title2: document.getElementById('title2'),
       tagline: document.getElementById('tagline'),
       cell: document.getElementById('cell'),
       office: document.getElementById('office'),
@@ -462,52 +478,50 @@
       address: document.getElementById('address'),
       mls: document.getElementById('mls'),
       headshotUrl: document.getElementById('headshotUrl'),
-	headshotShape: document.getElementById('headshotShape'),
-	logoCliffLewis: document.getElementById('logoCliffLewis'),
-	logoColdwell: document.getElementById('logoColdwell'),
-	logoExtra1: document.getElementById('logoExtra1'),
-	logoExtra2: document.getElementById('logoExtra2'),
-	logoBlueSky: document.getElementById('logoBlueSky'),
+      headshotSearch: document.getElementById('headshotSearch'),
+      headshotResults: document.getElementById('headshotResults'),
+      selectedHeadshotName: document.getElementById('selectedHeadshotName'),
+      headshotShape: document.getElementById('headshotShape'),
+      logoCliffLewis: document.getElementById('logoCliffLewis'),
+      logoColdwell: document.getElementById('logoColdwell'),
+      logoBlueSky: document.getElementById('logoBlueSky'),
       facebook: document.getElementById('facebook'),
       instagram: document.getElementById('instagram'),
       linkedin: document.getElementById('linkedin'),
       youtube: document.getElementById('youtube'),
       tiktok: document.getElementById('tiktok'),
-	homeWorthLink: document.getElementById('homeWorthLink'),
-	appointmentLink: document.getElementById('appointmentLink'),
-      x: document.getElementById('x')
+      x: document.getElementById('x'),
+      homeWorthLink: document.getElementById('homeWorthLink'),
+      appointmentLink: document.getElementById('appointmentLink')
     };
 
-    const headshotUpload = document.getElementById('headshotUpload');
     const preview = document.getElementById('signaturePreview');
-let uploadedHeadshotDataUrl = '';
-let originalHeadshotDataUrl = '';
-const availableLogos = {
-  logoCliffLewis: {
-    label: 'Cliff Lewis Experience Logo',
-    file: 'https://clefrontdesk.github.io/email-signature-generator/cliff-lewis-experience.png'
-  },
-  logoColdwell: {
-    label: 'Coldwell Banker Hearthside Logo',
-    file: 'https://clefrontdesk.github.io/email-signature-generator/coldwell-banker-hearthside.png'
-  },
-logoBlueSky: {
-  label: 'BlueSky Home Finance',
-  file: 'https://clefrontdesk.github.io/email-signature-generator/BlueSky_HomeFinance_BLACK.png'
-	},
-logoExtra1: {
-  label: 'Extra Logo 1',
-  file: 'https://clefrontdesk.github.io/email-signature-generator/extra-logo-1.png'
-}
- };
-   const socialIcons = {
-  facebook: 'https://clefrontdesk.github.io/email-signature-generator/facebook.png',
-  instagram: 'https://clefrontdesk.github.io/email-signature-generator/instagram.png',
-  linkedin: 'https://clefrontdesk.github.io/email-signature-generator/linkedin.png',
-  youtube: 'https://clefrontdesk.github.io/email-signature-generator/youtube.png',
-  tiktok: 'https://clefrontdesk.github.io/email-signature-generator/tiktok.png',
-  x: 'https://clefrontdesk.github.io/email-signature-generator/x.png'
-};
+    const HEADSHOT_API_URL = 'https://script.google.com/macros/s/AKfycbypOcGuzVedmJLuIRULgJ5Jv8TjR17Jl6jFYTxnBfvbUULDS8KgqlzhIdLj_5jKFStsRw/exec';
+    let headshotLibrary = [];
+
+    const socialIcons = {
+      facebook: 'https://clefrontdesk.github.io/email-signature-generator/facebook.png',
+      instagram: 'https://clefrontdesk.github.io/email-signature-generator/instagram.png',
+      linkedin: 'https://clefrontdesk.github.io/email-signature-generator/linkedin.png',
+      youtube: 'https://clefrontdesk.github.io/email-signature-generator/youtube.png',
+      tiktok: 'https://clefrontdesk.github.io/email-signature-generator/tiktok.png',
+      x: 'https://clefrontdesk.github.io/email-signature-generator/x.png'
+    };
+
+    const availableLogos = {
+      logoCliffLewis: {
+        label: 'Cliff Lewis Experience Logo',
+        file: 'https://clefrontdesk.github.io/email-signature-generator/cliff-lewis-experience.png'
+      },
+      logoColdwell: {
+        label: 'Coldwell Banker Hearthside Logo',
+        file: 'https://clefrontdesk.github.io/email-signature-generator/coldwell-banker-hearthside.png'
+      },
+      logoBlueSky: {
+        label: 'BlueSky Home Finance',
+        file: 'https://clefrontdesk.github.io/email-signature-generator/BlueSky_HomeFinance_BLACK.png'
+      }
+    };
 
     function normalizeUrl(url) {
       if (!url) return '';
@@ -519,102 +533,179 @@ logoExtra1: {
       return (phone || '').replace(/[^\d+]/g, '');
     }
 
-    function fallbackHeadshot(name) {
+    function fallbackHeadshot(name, shape) {
       const initials = (name || 'A')
         .split(/\s+/)
         .filter(Boolean)
         .slice(0, 2)
-        .map(part => part[0].toUpperCase())
+        .map(function(part) { return part[0].toUpperCase(); })
         .join('');
 
+      const size = 240;
+      const radius = shape === 'circle' ? '120' : '0';
       const svg =
         '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240">' +
-        '<rect width="100%" height="100%" fill="#d9dfe6"/>' +
-        '<text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="84" fill="#6b7885">' +
-        initials +
-        '</text></svg>';
+        '<rect width="100%" height="100%" rx="' + radius + '" ry="' + radius + '" fill="#d9dfe6"/>' +
+        '<text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="84" fill="#6b7885">' + initials + '</text>' +
+        '</svg>';
 
       return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
     }
 
-    function socialIcon(platform, href) {
-  return '<a href="' + href + '" target="_blank" style="display:inline-block; text-decoration:none; margin-right:6px;">' +
-    '<img src="' + socialIcons[platform] + '" alt="' + platform + '" width="24" height="24" style="display:block; width:24px; height:24px; border:0;">' +
-    '</a>';
-}
-function ctaButtonsHtml() {
-  const homeWorthUrl = normalizeUrl(fields.homeWorthLink.value);
-  const appointmentUrl = normalizeUrl(fields.appointmentLink.value);
+    async function loadHeadshotLibrary() {
+      try {
+        const response = await fetch(HEADSHOT_API_URL);
+        const data = await response.json();
+        headshotLibrary = data.headshots || [];
+        renderHeadshotResults(headshotLibrary);
+      } catch (error) {
+        console.error('Failed to load headshot library:', error);
+        fields.headshotResults.innerHTML = '<div style="padding:10px; font-size:13px; color:#6a7580;">Unable to load headshots.</div>';
+      }
+    }
 
-  let html = '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">';
+    function renderHeadshotResults(results) {
+  let html = '<button type="button" class="headshot-result" data-headshot-name="__none__">' +
+    '<span style="color:#6a7580;">— No headshot —</span>' +
+    '</button>';
 
-  if (homeWorthUrl) {
-    html += '<tr>' +
-      '<td style="padding-top:10px;">' +
-      '<a href="' + homeWorthUrl + '" target="_blank" style="display:inline-block; background:#152c60; color:#ffffff; text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:600; line-height:1.2; padding:12px 18px; border-radius:5px; ">Curious What Your Home is Worth?</a>' +
-      '</td>' +
-      '</tr>';
+  if (!results.length) {
+    html += '<div style="padding:10px; font-size:13px; color:#6a7580;">No matching headshots found.</div>';
+    fields.headshotResults.innerHTML = html;
+    return;
   }
 
-  if (appointmentUrl) {
-    html += '<tr>' +
-      '<td style="padding-top:10px;">' +
-      '<a href="' + appointmentUrl + '" target="_blank" style="display:inline-block; background:#152c60; color:#ffffff; text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:700; line-height:1.2; padding:10px 18px; border-radius:5px; ">Schedule an Appointment</a>' +
-      '</td>' +
-      '</tr>';
-  }
-
-  html += '</table>';
-  return html;
-}
-    function logoHtml(url, alt) {
-      if (!url) return '';
-      return '<img src="' + url + '" alt="' + alt + '" style="display:block; max-height:46px; width:auto;">';
-    }
-function selectedLogosHtml() {
-  let html = '';
-
-  Object.keys(availableLogos).forEach(function(key) {
-    if (fields[key] && fields[key].checked) {
-      html += '<img src="' + availableLogos[key].file + '" alt="' + availableLogos[key].label + '" style="display:inline-block; max-height:60px; width:auto; margin-right:16px;">';
-    }
+  results.forEach(function(item) {
+    const safeName = item.name.replace(/"/g, '&quot;');
+    html += '<button type="button" class="headshot-result" data-headshot-name="' + safeName + '">' +
+      '<span>' + safeName + '</span>' +
+      '</button>';
   });
 
-  return html;
+  fields.headshotResults.innerHTML = html;
 }
+
+    function filterHeadshots(searchTerm) {
+      const term = searchTerm.trim().toLowerCase();
+
+      if (!term) {
+        renderHeadshotResults(headshotLibrary);
+        return;
+      }
+
+      const filtered = headshotLibrary.filter(function(item) {
+        return item.name.toLowerCase().includes(term);
+      });
+
+      renderHeadshotResults(filtered);
+    }
+
+    function selectHeadshotByName(name) {
+  if (name === '__none__') {
+    fields.headshotUrl.value = '';
+    fields.selectedHeadshotName.textContent = 'No headshot selected.';
+    generateSignature();
+    return;
+  }
+
+  const selectedHeadshot = headshotLibrary.find(function(item) {
+    return item.name === name;
+  });
+
+  if (!selectedHeadshot) return;
+
+  fields.headshotUrl.value = selectedHeadshot.imageUrl;
+  fields.selectedHeadshotName.textContent = 'Selected: ' + selectedHeadshot.name;
+  generateSignature();
+}
+
+    function selectedSocialsHtml() {
+      let html = '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>';
+
+      ['facebook', 'instagram', 'linkedin', 'youtube', 'tiktok', 'x'].forEach(function(key) {
+        const url = normalizeUrl(fields[key].value);
+        if (url) {
+          html += '<td style="padding-right:8px; vertical-align:middle;">' +
+            '<a href="' + url + '" target="_blank" style="display:inline-block; text-decoration:none;">' +
+            '<img src="' + socialIcons[key] + '" alt="' + key + '" width="20" height="20" style="display:block; width:20px; height:20px; border:0;">' +
+            '</a>' +
+            '</td>';
+        }
+      });
+
+      html += '</tr></table>';
+      return html;
+    }
+
+    function selectedLogosHtml() {
+      let html = '';
+
+      Object.keys(availableLogos).forEach(function(key) {
+        if (fields[key] && fields[key].checked) {
+          html += '<img src="' + availableLogos[key].file + '" alt="' + availableLogos[key].label + '" style="display:inline-block; max-height:60px; width:auto; margin-right:16px; vertical-align:middle;">';
+        }
+      });
+
+      return html;
+    }
+
+    function ctaButtonsHtml() {
+      const homeWorthUrl = normalizeUrl(fields.homeWorthLink.value);
+      const appointmentUrl = normalizeUrl(fields.appointmentLink.value);
+
+      let html = '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">';
+
+      if (homeWorthUrl) {
+        html += '<tr><td style="padding-top:10px;">' +
+          '<a href="' + homeWorthUrl + '" target="_blank" style="display:inline-block; background:#1f1f23; color:#ffffff; text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:700; line-height:1.2; padding:16px 24px; white-space:nowrap;">Curious What Your Home is Worth?</a>' +
+          '</td></tr>';
+      }
+
+      if (appointmentUrl) {
+        html += '<tr><td style="padding-top:10px;">' +
+          '<a href="' + appointmentUrl + '" target="_blank" style="display:inline-block; background:#1f1f23; color:#ffffff; text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:700; line-height:1.2; padding:16px 24px; white-space:nowrap;">Schedule an Appointment</a>' +
+          '</td></tr>';
+      }
+
+      html += '</table>';
+      return html;
+    }
+
+    function applyHeadshotShape(imgEl) {
+      if (fields.headshotShape.value === 'circle') {
+        imgEl.style.borderRadius = '60px';
+      } else {
+        imgEl.style.borderRadius = '0';
+      }
+    }
+
     function generateSignature() {
       const frag = document.getElementById('signatureTemplate').content.cloneNode(true);
       const shell = document.createElement('div');
       shell.appendChild(frag);
       const root = shell.firstElementChild;
-const ctaRow = root.querySelector('[data-cta-row]');
-ctaRow.innerHTML = ctaButtonsHtml();
 
-if (!ctaRow.innerText.trim()) {
-  ctaRow.parentElement.style.display = 'none';
-} else {
-  ctaRow.parentElement.style.display = '';
-}
       root.querySelector('[data-text="fullName"]').textContent = fields.fullName.value || '';
       root.querySelector('[data-text="title"]').textContent = fields.title.value || '';
-	root.querySelector('[data-text="title2"]').textContent = fields.title2.value || '';
-		const title2El = root.querySelector('[data-text="title2"]');
-		if (!fields.title2.value.trim()) {
- 		 title2El.style.display = 'none';
-		} else {
-	  	 title2El.style.display = '';
-		}
+      root.querySelector('[data-text="title2"]').textContent = fields.title2.value || '';
       root.querySelector('[data-text="tagline"]').textContent = fields.tagline.value || '';
       root.querySelector('[data-text="address"]').textContent = fields.address.value || '';
-      const mlsRow = root.querySelector('[data-mls-row]');
-const mlsValue = fields.mls.value.trim();
+      root.querySelector('[data-text="mls"]').textContent = fields.mls.value || '';
 
-if (mlsValue) {
-  root.querySelector('[data-text="mls"]').textContent = mlsValue;
-  mlsRow.style.display = '';
-} else {
-  mlsRow.style.display = 'none';
-}
+      const title2Row = root.querySelector('[data-title2-row]');
+      if (!fields.title2.value.trim()) {
+        title2Row.style.display = 'none';
+      }
+
+      const addressRow = root.querySelector('[data-address-row]');
+      if (!fields.address.value.trim()) {
+        addressRow.style.display = 'none';
+      }
+
+      const mlsRow = root.querySelector('[data-mls-row]');
+      if (!fields.mls.value.trim()) {
+        mlsRow.style.display = 'none';
+      }
 
       const cellLink = root.querySelector('[data-link="cell"]');
       cellLink.textContent = fields.cell.value || '';
@@ -632,38 +723,45 @@ if (mlsValue) {
       websiteLink.textContent = fields.websiteLabel.value || fields.website.value || '';
       websiteLink.href = normalizeUrl(fields.website.value || '');
 
-  	const headshot = root.querySelector('[data-field="headshot"]');
-	const headshotCell = root.querySelector('[data-headshot-cell]');
-	const contentCell = root.querySelector('[data-content-cell]');
-	const headshotValue = fields.headshotUrl.value || uploadedHeadshotDataUrl;
+      const headshot = root.querySelector('[data-field="headshot"]');
+      const headshotCell = root.querySelector('[data-headshot-cell]');
+      const headshotValue = fields.headshotUrl.value;
 
-	if (headshotValue) {
- 	 headshot.src = headshotValue;
-	  headshotCell.style.display = '';
- 	 contentCell.style.paddingLeft = '';
-	} else {
- 	 headshotCell.style.display = 'none';
- 	 contentCell.style.paddingLeft = '0';
-	};
+      if (headshotValue) {
+        headshot.src = headshotValue;
+        applyHeadshotShape(headshot);
+        headshot.style.display = 'block';
+        headshotCell.style.width = '130px';
+        headshotCell.style.paddingRight = '16px';
+      } else {
+        headshot.src = fallbackHeadshot(fields.fullName.value, fields.headshotShape.value);
+        applyHeadshotShape(headshot);
+        headshot.style.display = 'none';
+        headshotCell.style.width = '0px';
+        headshotCell.style.paddingRight = '0px';
+      }
 
-      ['facebook', 'instagram', 'linkedin', 'youtube', 'tiktok', 'x'].forEach(function(key) {
-        const url = normalizeUrl(fields[key].value);
-        const wrap = root.querySelector('[data-social-wrap="' + key + '"]');
-        if (url) {
-          wrap.innerHTML = socialIcon(key, url);
-        } else {
-          wrap.innerHTML = '';
-        }
-      });
+   const socialRow = root.querySelector('[data-social-row]');
+const socialsHtml = selectedSocialsHtml();
+socialRow.innerHTML = socialsHtml;
 
-     const logoRow = root.querySelector('[data-logo-row]');
-logoRow.innerHTML = selectedLogosHtml();
-
-if (!logoRow.innerHTML.trim()) {
-  logoRow.parentElement.style.display = 'none';
+if (!socialsHtml.includes('<img')) {
+  socialRow.style.display = 'none';
 } else {
-  logoRow.parentElement.style.display = '';
+  socialRow.style.display = '';
 }
+
+      const logoRow = root.querySelector('[data-logo-row]');
+      logoRow.innerHTML = selectedLogosHtml();
+      if (!logoRow.innerHTML.trim()) {
+        logoRow.parentElement.style.display = 'none';
+      }
+
+      const ctaRow = root.querySelector('[data-cta-row]');
+      ctaRow.innerHTML = ctaButtonsHtml();
+      if (!ctaRow.innerText.trim()) {
+        ctaRow.parentElement.style.display = 'none';
+      }
 
       preview.innerHTML = '';
       preview.appendChild(root);
@@ -681,7 +779,7 @@ if (!logoRow.innerHTML.trim()) {
           'text/plain': new Blob([text], { type: 'text/plain' })
         });
         await navigator.clipboard.write([item]);
-        alert('Signature copied. Paste it into Gmail signature settings.');
+        alert('Signature copied. Paste it into Gmail, FUB, or Fello.');
       } catch (err) {
         const range = document.createRange();
         range.selectNodeContents(preview);
@@ -690,141 +788,42 @@ if (!logoRow.innerHTML.trim()) {
         selection.addRange(range);
         document.execCommand('copy');
         selection.removeAllRanges();
-        alert('Signature copied. Paste it into Gmail signature settings.');
+        alert('Signature copied. Paste it into Gmail, FUB, or Fello.');
       }
     }
-
-    function downloadHtml() {
-      if (!preview.firstElementChild) generateSignature();
-      const html = '<!DOCTYPE html><html><body>' + preview.innerHTML + '</body></html>';
-      const blob = new Blob([html], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'generated-signature.html';
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-
-function processHeadshotImage(sourceDataUrl) {
-  const img = new Image();
-
-  img.onload = function() {
-    const size = 100;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    canvas.width = size;
-    canvas.height = size;
-
-    const srcSize = Math.min(img.width, img.height);
-    const sx = (img.width - srcSize) / 2;
-    const sy = (img.height - srcSize) / 2;
-
-    ctx.clearRect(0, 0, size, size);
-
-    const shape = fields.headshotShape.value;
-
-    if (shape === 'circle') {
-      ctx.beginPath();
-      ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
-      ctx.closePath();
-      ctx.clip();
-    }
-
-    ctx.drawImage(
-      img,
-      sx, sy, srcSize, srcSize,
-      0, 0, size, size
-    );
-
-    uploadedHeadshotDataUrl = canvas.toDataURL('image/png');
-    fields.headshotUrl.value = '';
-    generateSignature();
-  };
-
-  img.src = sourceDataUrl;
-}
-function processHeadshotImage(sourceDataUrl) {
-  const img = new Image();
-
-  img.onload = function() {
-    const size = 120;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    canvas.width = size;
-    canvas.height = size;
-
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-
-    const srcSize = Math.min(img.width, img.height);
-    const sx = (img.width - srcSize) / 2;
-    const sy = (img.height - srcSize) / 2;
-
-    ctx.clearRect(0, 0, size, size);
-
-    const shape = fields.headshotShape.value;
-
-    if (shape === 'circle') {
-      ctx.beginPath();
-      ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
-      ctx.closePath();
-      ctx.clip();
-    }
-
-    ctx.drawImage(
-      img,
-      sx, sy, srcSize, srcSize,
-      0, 0, size, size
-    );
-
-    uploadedHeadshotDataUrl = canvas.toDataURL('image/png');
-    fields.headshotUrl.value = '';
-    generateSignature();
-  };
-
-  img.src = sourceDataUrl;
-}
- headshotUpload.addEventListener('change', function(event) {
-  const file = event.target.files && event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-
-  reader.onload = function(e) {
-    originalHeadshotDataUrl = e.target.result;
-    processHeadshotImage(originalHeadshotDataUrl);
-  };
-
-  reader.readAsDataURL(file);
-});
 
     document.getElementById('generateBtn').addEventListener('click', generateSignature);
     document.getElementById('copyBtn').addEventListener('click', copySignature);
     document.getElementById('copyTopBtn').addEventListener('click', copySignature);
-    document.getElementById('downloadBtn').addEventListener('click', downloadHtml);
-document.getElementById('headshotShape').addEventListener('change', function() {
-  if (originalHeadshotDataUrl) {
-    processHeadshotImage(originalHeadshotDataUrl);
-  } else {
-    generateSignature();
-  }
-});
 
-[
-  'logoCliffLewis',
-  'logoColdwell',
- 'logoBlueSky',
-  'logoExtra2'
-].forEach(function(id) {
-  const el = document.getElementById(id);
-  if (el) {
-    el.addEventListener('change', generateSignature);
-  }
-});
+    document.getElementById('headshotSearch').addEventListener('input', function() {
+      filterHeadshots(this.value);
+    });
 
+    document.getElementById('headshotResults').addEventListener('click', function(event) {
+      const btn = event.target.closest('[data-headshot-name]');
+      if (!btn) return;
+
+      const name = btn.getAttribute('data-headshot-name');
+      selectHeadshotByName(name);
+    });
+
+    document.getElementById('headshotShape').addEventListener('change', generateSignature);
+
+    [
+      'fullName', 'title', 'title2', 'tagline', 'cell', 'office', 'email', 'website', 'websiteLabel', 'address', 'mls',
+      'facebook', 'instagram', 'linkedin', 'youtube', 'tiktok', 'x', 'homeWorthLink', 'appointmentLink'
+    ].forEach(function(id) {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', generateSignature);
+    });
+
+    ['logoCliffLewis', 'logoColdwell', 'logoBlueSky'].forEach(function(id) {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('change', generateSignature);
+    });
+
+    loadHeadshotLibrary();
     generateSignature();
   </script>
 </body>
