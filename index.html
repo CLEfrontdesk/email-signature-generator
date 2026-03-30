@@ -600,7 +600,7 @@
       renderHeadshotResults(filtered);
     }
 
-    function selectHeadshotByName(name) {
+   function selectHeadshotByName(name) {
   if (name === '__none__') {
     fields.headshotUrl.value = '';
     fields.selectedHeadshotName.textContent = 'No headshot selected.';
@@ -614,9 +614,19 @@
 
   if (!selectedHeadshot) return;
 
-  fields.headshotUrl.value = selectedHeadshot.imageUrl;
-  fields.selectedHeadshotName.textContent = 'Selected: ' + selectedHeadshot.name;
-  generateSignature();
+  fields.selectedHeadshotName.textContent = 'Loading headshot...';
+
+  fetch(HEADSHOT_API_URL + '?fileId=' + selectedHeadshot.fileId)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      fields.headshotUrl.value = data.imageUrl;
+      fields.selectedHeadshotName.textContent = 'Selected: ' + selectedHeadshot.name;
+      generateSignature();
+    })
+    .catch(function(err) {
+      console.error('Failed to load headshot image:', err);
+      fields.selectedHeadshotName.textContent = 'Failed to load image. Try again.';
+    });
 }
 
     function selectedSocialsHtml() {
