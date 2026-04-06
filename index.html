@@ -164,6 +164,26 @@
       overflow: auto;
     }
 
+  .vacation-section {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 2px solid var(--line);
+    }
+ 
+    .vacation-section h2 {
+      margin: 0 0 4px;
+      font-size: 18px;
+    }
+ 
+    .vacation-caption {
+      font-size: 11px;
+      color: var(--muted);
+      font-style: italic;
+      margin: 0 0 14px;
+      line-height: 1.4;
+    }
+ 
+
     .gmail-steps {
       margin-top: 14px;
       font-size: 13px;
@@ -384,10 +404,7 @@
         <button class="secondary" id="copyBtn">Copy Signature</button>
       </div>
 
-      <div class="small-note">
-        Headshots now come from the company headshot library in Google Drive. This is more stable for Gmail and CRMs than uploading from a computer.
-      </div>
-    </div>
+   </div>
 
     <div class="card preview-card">
       <div class="preview-head">
@@ -403,12 +420,34 @@
       <div class="preview-shell">
         <div id="signaturePreview"></div>
       </div>
+<br>
+      <br>
+     <div class="preview-head">
+        <div>
+          <h2>Gmail Vacation Responder</h2>
+          <div class="status">Vacation responder signature does not include headshot, disclaimer, or call-to-action buttons.</div>
+        </div>
+ 	<div class="btn-row" style="margin-top:0;">
+            <button class="primary" id="copyVacationBtn">Copy Vacation Signature</button>
+          </div>
+	</div>
 
-      <div class="gmail-steps">
-        In Gmail: <strong>Settings → See all settings → General → Signature</strong>, create a new signature, paste it, then scroll down and click <strong>Save Changes</strong>.
+	<div class="preview-shell">
+          <div id="vacationPreview"></div>
+        </div>
+
+	<div class="gmail-steps">
+          In Gmail: <strong>Settings → See all settings → General → Vacation responder</strong>, paste this signature at the end of your vacation message, then click <strong>Save Changes</strong>.
+        </div>
       </div>
-    </div>
+
   </div>
+    </div>
+
+
+
+
+  
 
   <template id="signatureTemplate">
     <table cellpadding="0" cellspacing="0" border="0" style="width:680px; max-width:680px; font-family:Arial, Helvetica, sans-serif; color:#39444f; border-collapse:collapse; background:#ffffff;">
@@ -464,6 +503,42 @@
     </table>
   </template>
 
+ <!-- VACATION SIGNATURE TEMPLATE -->
+  <template id="vacationTemplate">
+    <table cellpadding="0" cellspacing="0" border="0" style="width:680px; max-width:680px; font-family:Arial, Helvetica, sans-serif; color:#39444f; border-collapse:collapse; background:#ffffff;">
+      <tr>
+        <td style="padding:10px 14px;">
+          <table cellpadding="0" cellspacing="0" border="0" style="width:100%; border-collapse:collapse;">
+            <tr>
+              <td style="vertical-align:top;">
+                <div style="font-size:22px; line-height:1.05; font-weight:700; letter-spacing:0.2px; color:#5f6c79; text-transform:uppercase;" data-text="fullName"></div>
+                <div style="margin-top:3px; font-size:15px; line-height:1.3; color:#5a6672; font-weight:700;" data-text="title"></div>
+                <div data-title2-row style="margin-top:1px; font-size:14px; line-height:1.3; color:#5a6672;" data-text="title2"></div>
+                <div style="margin-top:1px; font-size:13px; line-height:1.3; color:#7c8791;" data-text="tagline"></div>
+ 
+                <div style="margin-top:8px; font-size:13px; line-height:1.45; color:#4a5560;">
+                  <div><strong style="color:#5f6c79;">Cell:</strong> <a data-link="cell" style="color:#4a5560; text-decoration:none;"></a> &nbsp; <strong style="color:#5f6c79;">Office:</strong> <a data-link="office" style="color:#4a5560; text-decoration:none;"></a></div>
+                  <div><strong style="color:#5f6c79;">Email:</strong> <a data-link="email" style="color:#4a5560; text-decoration:none;"></a></div>
+                  <div><strong style="color:#5f6c79;">Web:</strong> <a data-link="website" target="_blank" style="color:#4a5560; text-decoration:none;"></a></div>
+                  <div data-address-row><strong style="color:#5f6c79;">Address:</strong> <span data-text="address"></span></div>
+                  <div data-mls-row><strong style="color:#5f6c79;">Licenses:</strong> <span data-text="mls"></span></div>
+                </div>
+ 
+                <div data-social-row style="margin-top:14px;"></div>
+              </td>
+            </tr>
+ 
+            <tr>
+              <td style="padding-top:16px;">
+                <div data-logo-row></div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </template>
+
   <script>
     const fields = {
       fullName: document.getElementById('fullName'),
@@ -494,11 +569,12 @@
       homeWorthLink: document.getElementById('homeWorthLink'),
       appointmentLink: document.getElementById('appointmentLink')
     };
-
+ 
     const preview = document.getElementById('signaturePreview');
+    const vacationPreview = document.getElementById('vacationPreview');
     const HEADSHOT_API_URL = 'https://script.google.com/macros/s/AKfycbypOcGuzVedmJLuIRULgJ5Jv8TjR17Jl6jFYTxnBfvbUULDS8KgqlzhIdLj_5jKFStsRw/exec';
     let headshotLibrary = [];
-
+ 
     const socialIcons = {
       facebook: 'https://clefrontdesk.github.io/email-signature-generator/facebook.png',
       instagram: 'https://clefrontdesk.github.io/email-signature-generator/instagram.png',
@@ -507,7 +583,7 @@
       tiktok: 'https://clefrontdesk.github.io/email-signature-generator/tiktok.png',
       x: 'https://clefrontdesk.github.io/email-signature-generator/x.png'
     };
-
+ 
     const availableLogos = {
       logoCliffLewis: {
         label: 'Cliff Lewis Experience Logo',
@@ -522,17 +598,17 @@
         file: 'https://clefrontdesk.github.io/email-signature-generator/BlueSky_HomeFinance_BLACK.png'
       }
     };
-
+ 
     function normalizeUrl(url) {
       if (!url) return '';
       if (/^https?:\/\//i.test(url)) return url;
       return 'https://' + url;
     }
-
+ 
     function cleanPhone(phone) {
       return (phone || '').replace(/[^\d+]/g, '');
     }
-
+ 
     function fallbackHeadshot(name, shape) {
       const initials = (name || 'A')
         .split(/\s+/)
@@ -540,18 +616,17 @@
         .slice(0, 2)
         .map(function(part) { return part[0].toUpperCase(); })
         .join('');
-
-      const size = 240;
+ 
       const radius = shape === 'circle' ? '120' : '0';
       const svg =
         '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240">' +
         '<rect width="100%" height="100%" rx="' + radius + '" ry="' + radius + '" fill="#d9dfe6"/>' +
         '<text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="84" fill="#6b7885">' + initials + '</text>' +
         '</svg>';
-
+ 
       return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
     }
-
+ 
     async function loadHeadshotLibrary() {
       try {
         const response = await fetch(HEADSHOT_API_URL);
@@ -563,75 +638,74 @@
         fields.headshotResults.innerHTML = '<div style="padding:10px; font-size:13px; color:#6a7580;">Unable to load headshots.</div>';
       }
     }
-
+ 
     function renderHeadshotResults(results) {
-  let html = '<button type="button" class="headshot-result" data-headshot-name="__none__">' +
-    '<span style="color:#6a7580;">— No headshot —</span>' +
-    '</button>';
-
-  if (!results.length) {
-    html += '<div style="padding:10px; font-size:13px; color:#6a7580;">No matching headshots found.</div>';
-    fields.headshotResults.innerHTML = html;
-    return;
-  }
-
-  results.forEach(function(item) {
-    const safeName = item.name.replace(/"/g, '&quot;');
-    html += '<button type="button" class="headshot-result" data-headshot-name="' + safeName + '">' +
-      '<span>' + safeName + '</span>' +
-      '</button>';
-  });
-
-  fields.headshotResults.innerHTML = html;
-}
-
+      let html = '<button type="button" class="headshot-result" data-headshot-name="__none__">' +
+        '<span style="color:#6a7580;">— No headshot —</span>' +
+        '</button>';
+ 
+      if (!results.length) {
+        html += '<div style="padding:10px; font-size:13px; color:#6a7580;">No matching headshots found.</div>';
+        fields.headshotResults.innerHTML = html;
+        return;
+      }
+ 
+      results.forEach(function(item) {
+        const safeName = item.name.replace(/"/g, '&quot;');
+        html += '<button type="button" class="headshot-result" data-headshot-name="' + safeName + '">' +
+          '<span>' + safeName + '</span>' +
+          '</button>';
+      });
+ 
+      fields.headshotResults.innerHTML = html;
+    }
+ 
     function filterHeadshots(searchTerm) {
       const term = searchTerm.trim().toLowerCase();
-
       if (!term) {
         renderHeadshotResults(headshotLibrary);
         return;
       }
-
       const filtered = headshotLibrary.filter(function(item) {
         return item.name.toLowerCase().includes(term);
       });
-
       renderHeadshotResults(filtered);
     }
-
-   function selectHeadshotByName(name) {
-  if (name === '__none__') {
-    fields.headshotUrl.value = '';
-    fields.selectedHeadshotName.textContent = 'No headshot selected.';
-    generateSignature();
-    return;
-  }
-
-  const selectedHeadshot = headshotLibrary.find(function(item) {
-    return item.name === name;
-  });
-
-  if (!selectedHeadshot) return;
-
-  fields.selectedHeadshotName.textContent = 'Loading headshot...';
-
-  fetch(HEADSHOT_API_URL + '?fileId=' + selectedHeadshot.fileId)
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      fields.headshotUrl.value = data.imageUrl;
-      fields.selectedHeadshotName.textContent = 'Selected: ' + selectedHeadshot.name;
-      generateSignature();
-    })
-    .catch(function(err) {
-      console.error('Failed to load headshot image:', err);
-      fields.selectedHeadshotName.textContent = 'Failed to load image. Try again.';
-    });
-}
-
+ 
+    function selectHeadshotByName(name) {
+      if (name === '__none__') {
+        fields.headshotUrl.value = '';
+        fields.selectedHeadshotName.textContent = 'No headshot selected.';
+        generateSignature();
+        generateVacationSignature();
+        return;
+      }
+ 
+      const selectedHeadshot = headshotLibrary.find(function(item) {
+        return item.name === name;
+      });
+ 
+      if (!selectedHeadshot) return;
+ 
+      fields.selectedHeadshotName.textContent = 'Loading headshot...';
+ 
+      fetch(HEADSHOT_API_URL + '?fileId=' + selectedHeadshot.fileId)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          fields.headshotUrl.value = data.imageUrl;
+          fields.selectedHeadshotName.textContent = 'Selected: ' + selectedHeadshot.name;
+          generateSignature();
+          generateVacationSignature();
+        })
+        .catch(function(err) {
+          console.error('Failed to load headshot image:', err);
+          fields.selectedHeadshotName.textContent = 'Failed to load image. Try again.';
+        });
+    }
+ 
     function selectedSocialsHtml() {
       let html = '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>';
-
+ 
       ['facebook', 'instagram', 'linkedin', 'youtube', 'tiktok', 'x'].forEach(function(key) {
         const url = normalizeUrl(fields[key].value);
         if (url) {
@@ -642,45 +716,43 @@
             '</td>';
         }
       });
-
+ 
       html += '</tr></table>';
       return html;
     }
-
+ 
     function selectedLogosHtml() {
       let html = '';
-
       Object.keys(availableLogos).forEach(function(key) {
         if (fields[key] && fields[key].checked) {
           html += '<img src="' + availableLogos[key].file + '" alt="' + availableLogos[key].label + '" style="display:inline-block; max-height:60px; width:auto; margin-right:16px; vertical-align:middle;">';
         }
       });
-
       return html;
     }
-
+ 
     function ctaButtonsHtml() {
       const homeWorthUrl = normalizeUrl(fields.homeWorthLink.value);
       const appointmentUrl = normalizeUrl(fields.appointmentLink.value);
-
+ 
       let html = '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">';
-
+ 
       if (homeWorthUrl) {
         html += '<tr><td style="padding-top:10px;">' +
           '<a href="' + homeWorthUrl + '" target="_blank" style="display:inline-block; background:#152c60; color:#ffffff; text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:14px; font-weight:600; line-height:1.2; padding:14px 22px; border-radius:10px; white-space:nowrap;">Curious What Your Home is Worth?</a>' +
           '</td></tr>';
       }
-
+ 
       if (appointmentUrl) {
         html += '<tr><td style="padding-top:10px;">' +
           '<a href="' + appointmentUrl + '" target="_blank" style="display:inline-block; background:#152c60; color:#ffffff; text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:14px; font-weight:600; line-height:1.2; padding:14px 22px; border-radius:10px; white-space:nowrap;">Schedule an Appointment</a>' +
           '</td></tr>';
       }
-
+ 
       html += '</table>';
       return html;
     }
-
+ 
     function applyHeadshotShape(imgEl) {
       if (fields.headshotShape.value === 'circle') {
         imgEl.style.borderRadius = '60px';
@@ -688,55 +760,62 @@
         imgEl.style.borderRadius = '0';
       }
     }
-
-    function generateSignature() {
-      const frag = document.getElementById('signatureTemplate').content.cloneNode(true);
-      const shell = document.createElement('div');
-      shell.appendChild(frag);
-      const root = shell.firstElementChild;
-
+ 
+    function populateCommonFields(root) {
       root.querySelector('[data-text="fullName"]').textContent = fields.fullName.value || '';
       root.querySelector('[data-text="title"]').textContent = fields.title.value || '';
       root.querySelector('[data-text="title2"]').textContent = fields.title2.value || '';
       root.querySelector('[data-text="tagline"]').textContent = fields.tagline.value || '';
       root.querySelector('[data-text="address"]').textContent = fields.address.value || '';
       root.querySelector('[data-text="mls"]').textContent = fields.mls.value || '';
-
+ 
       const title2Row = root.querySelector('[data-title2-row]');
-      if (!fields.title2.value.trim()) {
-        title2Row.style.display = 'none';
-      }
-
+      if (!fields.title2.value.trim()) title2Row.style.display = 'none';
+ 
       const addressRow = root.querySelector('[data-address-row]');
-      if (!fields.address.value.trim()) {
-        addressRow.style.display = 'none';
-      }
-
+      if (!fields.address.value.trim()) addressRow.style.display = 'none';
+ 
       const mlsRow = root.querySelector('[data-mls-row]');
-      if (!fields.mls.value.trim()) {
-        mlsRow.style.display = 'none';
-      }
-
+      if (!fields.mls.value.trim()) mlsRow.style.display = 'none';
+ 
       const cellLink = root.querySelector('[data-link="cell"]');
       cellLink.textContent = fields.cell.value || '';
       cellLink.href = 'tel:' + cleanPhone(fields.cell.value);
-
+ 
       const officeLink = root.querySelector('[data-link="office"]');
       officeLink.textContent = fields.office.value || '';
       officeLink.href = 'tel:' + cleanPhone(fields.office.value);
-
+ 
       const emailLink = root.querySelector('[data-link="email"]');
       emailLink.textContent = fields.email.value || '';
       emailLink.href = 'mailto:' + (fields.email.value || '');
-
+ 
       const websiteLink = root.querySelector('[data-link="website"]');
       websiteLink.textContent = fields.websiteLabel.value || fields.website.value || '';
       websiteLink.href = normalizeUrl(fields.website.value || '');
-
+ 
+      const socialRow = root.querySelector('[data-social-row]');
+      const socialsHtml = selectedSocialsHtml();
+      socialRow.innerHTML = socialsHtml;
+      socialRow.style.display = socialsHtml.includes('<img') ? '' : 'none';
+ 
+      const logoRow = root.querySelector('[data-logo-row]');
+      logoRow.innerHTML = selectedLogosHtml();
+      if (!logoRow.innerHTML.trim()) logoRow.parentElement.style.display = 'none';
+    }
+ 
+    function generateSignature() {
+      const frag = document.getElementById('signatureTemplate').content.cloneNode(true);
+      const shell = document.createElement('div');
+      shell.appendChild(frag);
+      const root = shell.firstElementChild;
+ 
+      populateCommonFields(root);
+ 
       const headshot = root.querySelector('[data-field="headshot"]');
       const headshotCell = root.querySelector('[data-headshot-cell]');
       const headshotValue = fields.headshotUrl.value;
-
+ 
       if (headshotValue) {
         headshot.src = headshotValue;
         applyHeadshotShape(headshot);
@@ -750,39 +829,31 @@
         headshotCell.style.width = '0px';
         headshotCell.style.paddingRight = '0px';
       }
-
-   const socialRow = root.querySelector('[data-social-row]');
-const socialsHtml = selectedSocialsHtml();
-socialRow.innerHTML = socialsHtml;
-
-if (!socialsHtml.includes('<img')) {
-  socialRow.style.display = 'none';
-} else {
-  socialRow.style.display = '';
-}
-
-      const logoRow = root.querySelector('[data-logo-row]');
-      logoRow.innerHTML = selectedLogosHtml();
-      if (!logoRow.innerHTML.trim()) {
-        logoRow.parentElement.style.display = 'none';
-      }
-
+ 
       const ctaRow = root.querySelector('[data-cta-row]');
       ctaRow.innerHTML = ctaButtonsHtml();
-      if (!ctaRow.innerText.trim()) {
-        ctaRow.parentElement.style.display = 'none';
-      }
-
+      if (!ctaRow.innerText.trim()) ctaRow.parentElement.style.display = 'none';
+ 
       preview.innerHTML = '';
       preview.appendChild(root);
     }
-
+ 
+    function generateVacationSignature() {
+      const frag = document.getElementById('vacationTemplate').content.cloneNode(true);
+      const shell = document.createElement('div');
+      shell.appendChild(frag);
+      const root = shell.firstElementChild;
+ 
+      populateCommonFields(root);
+ 
+      vacationPreview.innerHTML = '';
+      vacationPreview.appendChild(root);
+    }
+ 
     async function copySignature() {
       if (!preview.firstElementChild) generateSignature();
-
       const html = preview.innerHTML;
       const text = preview.innerText;
-
       try {
         const item = new ClipboardItem({
           'text/html': new Blob([html], { type: 'text/html' }),
@@ -801,40 +872,76 @@ if (!socialsHtml.includes('<img')) {
         alert('Signature copied. Paste it into Gmail, FUB, or Fello.');
       }
     }
-
-    document.getElementById('generateBtn').addEventListener('click', generateSignature);
+ 
+    async function copyVacationSignature() {
+      if (!vacationPreview.firstElementChild) generateVacationSignature();
+      const html = vacationPreview.innerHTML;
+      const text = vacationPreview.innerText;
+      try {
+        const item = new ClipboardItem({
+          'text/html': new Blob([html], { type: 'text/html' }),
+          'text/plain': new Blob([text], { type: 'text/plain' })
+        });
+        await navigator.clipboard.write([item]);
+        alert('Vacation signature copied. Paste it into your Gmail vacation responder message.');
+      } catch (err) {
+        const range = document.createRange();
+        range.selectNodeContents(vacationPreview);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand('copy');
+        selection.removeAllRanges();
+        alert('Vacation signature copied. Paste it into your Gmail vacation responder message.');
+      }
+    }
+ 
+    document.getElementById('generateBtn').addEventListener('click', function() {
+      generateSignature();
+      generateVacationSignature();
+    });
     document.getElementById('copyBtn').addEventListener('click', copySignature);
     document.getElementById('copyTopBtn').addEventListener('click', copySignature);
-
+    document.getElementById('copyVacationBtn').addEventListener('click', copyVacationSignature);
+ 
     document.getElementById('headshotSearch').addEventListener('input', function() {
       filterHeadshots(this.value);
     });
-
+ 
     document.getElementById('headshotResults').addEventListener('click', function(event) {
       const btn = event.target.closest('[data-headshot-name]');
       if (!btn) return;
-
       const name = btn.getAttribute('data-headshot-name');
       selectHeadshotByName(name);
     });
-
-    document.getElementById('headshotShape').addEventListener('change', generateSignature);
-
+ 
+    document.getElementById('headshotShape').addEventListener('change', function() {
+      generateSignature();
+      generateVacationSignature();
+    });
+ 
     [
       'fullName', 'title', 'title2', 'tagline', 'cell', 'office', 'email', 'website', 'websiteLabel', 'address', 'mls',
       'facebook', 'instagram', 'linkedin', 'youtube', 'tiktok', 'x', 'homeWorthLink', 'appointmentLink'
     ].forEach(function(id) {
       const el = document.getElementById(id);
-      if (el) el.addEventListener('input', generateSignature);
+      if (el) el.addEventListener('input', function() {
+        generateSignature();
+        generateVacationSignature();
+      });
     });
-
+ 
     ['logoCliffLewis', 'logoColdwell', 'logoBlueSky'].forEach(function(id) {
       const el = document.getElementById(id);
-      if (el) el.addEventListener('change', generateSignature);
+      if (el) el.addEventListener('change', function() {
+        generateSignature();
+        generateVacationSignature();
+      });
     });
-
+ 
     loadHeadshotLibrary();
     generateSignature();
+    generateVacationSignature();
   </script>
 </body>
 </html>
