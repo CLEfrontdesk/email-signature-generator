@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLE Email Signature Generator v2</title>
+<style>
+:root{--navy:#0e3764;--blue:#15618b;--ink:#23313d;--muted:#6d7882;--line:#d8e0e7;--bg:#eef3f6;--white:#fff;--good:#247a4b;--warn:#9a6700}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+.wrap{max-width:1240px;margin:24px auto;padding:0 16px}.hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-radius:18px;padding:22px 24px;margin-bottom:18px}
+.hero h1{margin:0 0 6px;font-size:28px}.hero p{margin:0;opacity:.9;font-size:14px}
+.grid{display:grid;grid-template-columns:370px 1fr;gap:18px}.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.05)}
+.controls{padding:18px}.preview{padding:18px}.section{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}.section:first-of-type{margin-top:0;padding-top:0;border:0}
+h2{margin:0 0 10px;font-size:16px}label{display:block;font-size:12px;font-weight:700;color:#4e5f6d;margin:10px 0 6px}
+input,select{width:100%;padding:10px 11px;border:1px solid #cbd5dd;border-radius:10px;font-size:14px;background:#fff}
+input:focus,select:focus,button:focus{outline:3px solid rgba(21,97,139,.18);outline-offset:1px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hint{font-size:11px;color:var(--muted);line-height:1.4;margin-top:5px}
+.profile-status{margin-top:9px;font-size:12px}.good{color:var(--good)}.warn{color:var(--warn)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tab{border:1px solid #cbd5dd;background:#fff;color:var(--ink);padding:10px 15px;border-radius:10px;font-weight:700;cursor:pointer}.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.preview-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.preview-head h2{font-size:20px}.copy{border:0;background:var(--blue);color:#fff;border-radius:10px;padding:11px 15px;font-size:14px;font-weight:700;cursor:pointer}
+.shell{margin-top:12px;background:#f8fafb;border:1px dashed #bcc8d2;border-radius:14px;padding:18px;overflow:auto;min-height:230px}
+.instructions{margin-top:16px;background:#f8fafb;border:1px solid var(--line);border-radius:12px;padding:14px;font-size:12px;line-height:1.55}.instructions strong{color:var(--navy)}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#e7f1f7;color:var(--navy);font-size:11px;font-weight:700;margin-left:6px}.checkrow{display:flex;align-items:flex-start;gap:8px;margin-top:10px}.checkrow input{width:auto;margin-top:2px}.hidden{display:none!important}
+@media(max-width:940px){.grid{grid-template-columns:1fr}.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1>CLE Email Signature Generator <span class="badge">v2</span></h1>
+    <p>Select your name, verify your information, choose where you are installing the signature, then copy.</p>
+  </div>
+  <div class="grid">
+    <div class="card controls">
+      <div class="section">
+        <h2>1. Select Your Profile</h2>
+        <label for="agentSelect">Who are you?</label>
+        <select id="agentSelect"><option value="">Loading roster...</option></select>
+        <div id="profileStatus" class="profile-status"></div>
+      </div>
+      <div class="section">
+        <h2>2. Verify Your Information</h2>
+        <label for="fullName">Name</label><input id="fullName">
+        <div class="row2"><div><label for="title">Title</label><input id="title"></div><div><label for="office">Office</label><input id="office"></div></div>
+        <div class="row2"><div><label for="phone">Cell</label><input id="phone"></div><div><label for="officePhone">Office Phone</label><input id="officePhone" value="610-465-5600"></div></div>
+        <label for="email">Email</label><input id="email">
+        <label for="license">Real Estate License</label><input id="license">
+        <div id="mortgageArea" class="hidden"><label for="nmls">NMLS #</label><input id="nmls"><label class="checkrow"><input type="checkbox" id="includeMortgage"><span>Include Blue Sky Home Finance / mortgage information</span></label></div>
+        <label for="instagram">Instagram</label><input id="instagram">
+        <div class="hint">Roster data is prefilled, but you can correct anything here before copying.</div>
+      </div>
+      <div class="section">
+        <h2>3. Team Defaults</h2>
+        <label for="website">Website</label><input id="website" value="https://clifflewisrealtor.com">
+        <label for="websiteLabel">Website Label</label><input id="websiteLabel" value="CliffLewisRealtor.com">
+        <label for="tagline">Team</label><input id="tagline" value="Cliff Lewis Experience">
+      </div>
+    </div>
+    <div class="card preview">
+      <div class="tabs"><button class="tab active" data-tab="gmail">Gmail</button><button class="tab" data-tab="fub">FUB / Sure Send</button><button class="tab" data-tab="vacation">Vacation</button></div>
+      <div class="preview-head"><div><h2 id="previewTitle">Gmail Signature</h2><div id="previewSub" class="hint">Full signature. Hosted headshots appear when available.</div></div><button id="copyBtn" class="copy">Copy Gmail Signature</button></div>
+      <div class="shell"><div id="signaturePreview"></div></div>
+      <div id="instructions" class="instructions"></div>
+    </div>
+  </div>
+</div>
+<script>
+const $=id=>document.getElementById(id);let agents=[],activeTab='gmail',currentAgent=null;const hostedBase='https://clefrontdesk.github.io/email-signature-generator/';const teamIcons={facebook:hostedBase+'facebook.png',instagram:hostedBase+'instagram.png',youtube:hostedBase+'youtube.png',tiktok:hostedBase+'tiktok.png'};const logos={cle:hostedBase+'cliff-lewis-experience.png',cb:hostedBase+'coldwell-banker-hearthside.png',blue:hostedBase+'BlueSky_HomeFinance_BLACK.png'};
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}function safeUrl(v){v=(v||'').trim();return !v?'':/^https?:\/\//i.test(v)?v:'https://'+v}function tel(v){return(v||'').replace(/[^\d+]/g,'')}
+function data(){return{name:$('fullName').value.trim(),title:$('title').value.trim(),office:$('office').value.trim(),phone:$('phone').value.trim(),officePhone:$('officePhone').value.trim(),email:$('email').value.trim(),license:$('license').value.trim(),nmls:$('nmls').value.trim(),includeMortgage:$('includeMortgage').checked,instagram:$('instagram').value.trim(),website:safeUrl($('website').value),websiteLabel:$('websiteLabel').value.trim(),tagline:$('tagline').value.trim(),headshot:currentAgent?.headshot||''}}
+function socials(d){const links=[['facebook','https://www.facebook.com/CliffLewisExperience'],['instagram',d.instagram?('https://www.instagram.com/'+d.instagram.replace(/^@/,'').replace(/\/$/,'')):'https://www.instagram.com/clifflewisexperience/'],['youtube','https://www.youtube.com/@CliffLewisExperience-pq8xc'],['tiktok','https://www.tiktok.com/@clifflewisexperience']];return links.map(([k,u])=>`<a href="${u}" style="display:inline-block;margin-right:7px;text-decoration:none"><img src="${teamIcons[k]}" width="20" height="20" style="display:block;border:0;width:20px;height:20px" alt="${k}"></a>`).join('')}
+function licenseLine(d){let parts=[];if(d.license)parts.push('PA #'+esc(d.license));if(d.includeMortgage&&d.nmls)parts.push('NMLS #'+esc(d.nmls));return parts.join(' | ')}
+function gmailHtml(d){const photo=d.headshot?`<td style="width:130px;vertical-align:top;padding-right:16px"><img src="${d.headshot}" width="120" height="120" alt="${esc(d.name)}" style="display:block;width:120px;height:120px;border-radius:60px;object-fit:cover"></td>`:'';const mortgage=d.includeMortgage&&d.nmls?`<div style="margin-top:2px;font-size:12px;color:#6c7781;font-style:italic">Mortgage Loan Originator | NMLS #${esc(d.nmls)}</div>`:'';return `<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;color:#39444f;border-collapse:collapse;background:#fff;max-width:680px"><tr>${photo}<td style="vertical-align:top"><div style="font-size:21px;line-height:1.1;font-weight:700;color:#55626f;text-transform:uppercase">${esc(d.name)}</div><div style="margin-top:3px;font-size:14px;font-weight:700;color:#5a6672">${esc(d.title)}</div><div style="font-size:12px;color:#7c8791">${esc(d.tagline)}${d.office?' | '+esc(d.office):''}</div>${mortgage}<div style="margin-top:8px;font-size:12px;line-height:1.5;color:#4a5560">${licenseLine(d)?`<div>${licenseLine(d)}</div>`:''}<div>Cell: <a href="tel:${tel(d.phone)}" style="color:#39444f">${esc(d.phone)}</a>${d.officePhone?` &nbsp; Office: <a href="tel:${tel(d.officePhone)}" style="color:#39444f">${esc(d.officePhone)}</a>`:''}</div><div>Website: <a href="${d.website}" style="color:#39444f">${esc(d.websiteLabel||d.website)}</a> &nbsp; Email: <a href="mailto:${esc(d.email)}" style="color:#39444f">${esc(d.email)}</a></div></div><div style="margin-top:9px">${socials(d)}</div><div style="margin-top:12px"><img src="${logos.cle}" height="34" style="height:34px;width:auto;margin-right:10px;vertical-align:middle" alt="Cliff Lewis Experience"><img src="${logos.cb}" height="34" style="height:34px;width:auto;vertical-align:middle" alt="Coldwell Banker Hearthside">${d.includeMortgage?`<img src="${logos.blue}" height="30" style="height:30px;width:auto;margin-left:10px;vertical-align:middle" alt="Blue Sky Home Finance">`:''}</div></td></tr></table>`}
+function fubHtml(d){return `<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;color:#111;border-collapse:collapse;background:#fff;max-width:650px"><tr><td style="vertical-align:top;padding:3px 0"><div style="font-size:18px;line-height:1.15;font-weight:700">${esc(d.name)}</div>${licenseLine(d)?`<div style="font-size:12px;line-height:1.35">${licenseLine(d)}</div>`:''}<div style="font-size:12px;line-height:1.35;font-style:italic">${esc(d.tagline)}${d.title?' | '+esc(d.title):''}${d.includeMortgage&&d.nmls?' | Mortgage Loan Originator':''}</div><div style="margin-top:8px;font-size:12px;line-height:1.5;color:#666">Cell: <a href="tel:${tel(d.phone)}" style="color:#111">${esc(d.phone)}</a>${d.officePhone?` &nbsp; Office: <a href="tel:${tel(d.officePhone)}" style="color:#111">${esc(d.officePhone)}</a>`:''}<br>Website: <a href="${d.website}" style="color:#111">${esc(d.websiteLabel||d.website)}</a> &nbsp; Email: <a href="mailto:${esc(d.email)}" style="color:#111">${esc(d.email)}</a></div><div style="margin-top:9px">${socials(d)}</div></td></tr></table>`}
+function vacationHtml(d){return `<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;color:#39444f;border-collapse:collapse;background:#fff"><tr><td><div style="font-size:18px;font-weight:700;color:#55626f">${esc(d.name)}</div><div style="font-size:12px;color:#6d7882">${esc(d.title)} | ${esc(d.tagline)}</div>${licenseLine(d)?`<div style="font-size:11px;margin-top:3px">${licenseLine(d)}</div>`:''}<div style="margin-top:6px;font-size:12px;line-height:1.45">Cell: ${esc(d.phone)}${d.officePhone?' | Office: '+esc(d.officePhone):''}<br><a href="mailto:${esc(d.email)}" style="color:#39444f">${esc(d.email)}</a> | <a href="${d.website}" style="color:#39444f">${esc(d.websiteLabel||d.website)}</a></div></td></tr></table>`}
+function render(){const d=data();let html='',title='',sub='',btn='',inst='';if(activeTab==='gmail'){html=gmailHtml(d);title='Gmail Signature';sub=d.headshot?'Full signature with hosted headshot.':'Full signature. This profile does not have a hosted headshot yet.';btn='Copy Gmail Signature';inst='<strong>Gmail:</strong> Copy the signature, then go to Settings → See all settings → General → Signature. Paste it into the signature box and save. Send yourself a test email.'}else if(activeTab==='fub'){html=fubHtml(d);title='FUB / Sure Send Signature';sub='Clean left-aligned version with no ghost photo column.';btn='Copy FUB / Sure Send Signature';inst='<strong>FUB / Sure Send:</strong> Paste this directly into the signature editor. Do not use Import Signature. If you want a headshot, add it afterward using the platform image button.'}else{html=vacationHtml(d);title='Vacation Signature';sub='Simple version for Gmail vacation responder.';btn='Copy Vacation Signature';inst='<strong>Vacation responder:</strong> In Gmail, go to Settings → See all settings → General → Vacation responder. Paste this at the end of the vacation message and save.'}$('signaturePreview').innerHTML=html;$('previewTitle').textContent=title;$('previewSub').textContent=sub;$('copyBtn').textContent=btn;$('instructions').innerHTML=inst}
+function loadAgent(a){currentAgent=a;$('fullName').value=a.name||'';$('title').value=a.title||'Realtor';$('office').value=a.office||'';$('phone').value=a.phone||'';$('email').value=a.email||'';$('license').value=a.license||'';$('nmls').value=(a.nmls||'').trim();$('instagram').value=a.instagram_handle||'';const has=!!(a.nmls||'').trim();$('mortgageArea').classList.toggle('hidden',!has);$('includeMortgage').checked=false;$('profileStatus').innerHTML=a.headshot?'<span class="good">✓ Profile loaded. Hosted headshot ready.</span>':'<span class="warn">Profile loaded. Headshot hosting is not finished for this person yet.</span>';render()}
+async function init(){try{const r=await fetch('agents.json',{cache:'no-store'});const j=await r.json();agents=j.agents||[];$('agentSelect').innerHTML='<option value="">Select your name...</option>'+agents.map((a,i)=>`<option value="${i}">${esc(a.name)}</option>`).join('');const george=agents.findIndex(a=>a.name==='George Mosellie');if(george>=0){$('agentSelect').value=String(george);loadAgent(agents[george])}}catch(e){$('agentSelect').innerHTML='<option value="">Roster could not load</option>';$('profileStatus').textContent='Could not load roster data.'}}
+$('agentSelect').addEventListener('change',e=>{if(e.target.value==='')return;const i=Number(e.target.value);if(Number.isInteger(i)&&agents[i])loadAgent(agents[i])});document.querySelectorAll('input').forEach(el=>el.addEventListener('input',render));document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');activeTab=b.dataset.tab;render()}));$('copyBtn').addEventListener('click',async()=>{render();const html=$('signaturePreview').innerHTML,text=$('signaturePreview').innerText;try{await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([text],{type:'text/plain'})})]);const old=$('copyBtn').textContent;$('copyBtn').textContent='Copied!';setTimeout(()=>$('copyBtn').textContent=old,1200)}catch(e){const range=document.createRange();range.selectNodeContents($('signaturePreview'));const sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);document.execCommand('copy');sel.removeAllRanges()}});init();
+</script>
+</body>
+</html>
