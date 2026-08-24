@@ -1,0 +1,78 @@
+name: Sync headshots
+
+on:
+  push:
+    paths:
+      - '.github/workflows/sync-headshots.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '15 12 * * 1'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download headshots from CLE headshot API
+        env:
+          HEADSHOT_API_URL: https://script.google.com/macros/s/AKfycbypOcGuzVedmJLuIRULgJ5Jv8TjR17Jl6jFYTxnBfvbUULDS8KgqlzhIdLj_5jKFStsRw/exec
+        run: |
+          python - <<'PY'
+          import base64, json, os, re, urllib.parse, urllib.request
+
+          api = os.environ['HEADSHOT_API_URL']
+          os.makedirs('headshots', exist_ok=True)
+
+          def get_json(url):
+              req = urllib.request.Request(url, headers={'User-Agent': 'CLE-headshot-sync'})
+              with urllib.request.urlopen(req, timeout=60) as r:
+                  return json.loads(r.read().decode('utf-8'))
+
+          library = get_json(api).get('headshots', [])
+          print(f'Found {len(library)} headshots')
+
+          manifest = {}
+          for item in library:
+              name = str(item.get('name', '')).strip()
+              file_id = str(item.get('fileId', '')).strip()
+              if not name or not file_id:
+                  continue
+
+              result = get_json(api + '?fileId=' + urllib.parse.quote(file_id))
+              image_url = result.get('imageUrl', '')
+              match = re.match(r'^data:image/([A-Za-z0-9.+-]+);base64,(.+)$', image_url, re.S)
+              if not match:
+                  print('Skipping invalid image:', name)
+                  continue
+
+              subtype, payload = match.groups()
+              ext = 'jpg' if subtype.lower() in ('jpeg', 'jpg') else subtype.lower()
+              stem = re.sub(r'[^A-Za-z0-9]+', '_', name).strip('_')
+              filename = f'{stem}.{ext}'
+              with open(os.path.join('headshots', filename), 'wb') as f:
+                  f.write(base64.b64decode(payload))
+              manifest[name] = filename
+              print('Saved', filename)
+
+          with open('headshots/manifest.json', 'w', encoding='utf-8') as f:
+              json.dump(manifest, f, indent=2, sort_keys=True)
+          PY
+
+      - name: Commit updated headshots
+        run: |
+          if git diff --quiet -- headshots && [ -z "$(git status --porcelain headshots)" ]; then
+            echo "No headshot changes"
+            exit 0
+          fi
+          git config user.name "CLE Headshot Sync"
+          git config user.email "frontdesk@cliffmlewis.com"
+          git add headshots
+          git commit -m "Sync agent headshots"
+          git push
