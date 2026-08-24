@@ -28,6 +28,7 @@ jobs:
           import base64, json, os, re, urllib.parse, urllib.request
 
           api = os.environ['HEADSHOT_API_URL']
+          public_base = 'https://clefrontdesk.github.io/email-signature-generator/headshots/'
           os.makedirs('headshots', exist_ok=True)
 
           def get_json(url):
@@ -35,10 +36,14 @@ jobs:
               with urllib.request.urlopen(req, timeout=60) as r:
                   return json.loads(r.read().decode('utf-8'))
 
+          def key(value):
+              return re.sub(r'[^a-z0-9]+', '', str(value).lower())
+
           library = get_json(api).get('headshots', [])
           print(f'Found {len(library)} headshots')
 
           manifest = {}
+          normalized = {}
           for item in library:
               name = str(item.get('name', '')).strip()
               file_id = str(item.get('fileId', '')).strip()
@@ -59,20 +64,35 @@ jobs:
               with open(os.path.join('headshots', filename), 'wb') as f:
                   f.write(base64.b64decode(payload))
               manifest[name] = filename
+              normalized[key(name)] = filename
               print('Saved', filename)
 
           with open('headshots/manifest.json', 'w', encoding='utf-8') as f:
               json.dump(manifest, f, indent=2, sort_keys=True)
+
+          if os.path.exists('agents.json'):
+              with open('agents.json', encoding='utf-8') as f:
+                  roster = json.load(f)
+              matched = 0
+              for agent in roster.get('agents', []):
+                  filename = normalized.get(key(agent.get('name', '')))
+                  if filename:
+                      agent['headshot'] = public_base + filename
+                      matched += 1
+              with open('agents.json', 'w', encoding='utf-8') as f:
+                  json.dump(roster, f, indent=2, ensure_ascii=False)
+                  f.write('\n')
+              print(f'Matched {matched} roster profiles to hosted headshots')
           PY
 
-      - name: Commit updated headshots
+      - name: Commit updated headshots and roster mapping
         run: |
-          if git diff --quiet -- headshots && [ -z "$(git status --porcelain headshots)" ]; then
+          if git diff --quiet -- headshots agents.json && [ -z "$(git status --porcelain headshots agents.json)" ]; then
             echo "No headshot changes"
             exit 0
           fi
           git config user.name "CLE Headshot Sync"
           git config user.email "frontdesk@cliffmlewis.com"
-          git add headshots
+          git add headshots agents.json
           git commit -m "Sync agent headshots"
           git push
