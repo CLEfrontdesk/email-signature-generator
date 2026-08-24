@@ -25,7 +25,7 @@ jobs:
           HEADSHOT_API_URL: https://script.google.com/macros/s/AKfycbypOcGuzVedmJLuIRULgJ5Jv8TjR17Jl6jFYTxnBfvbUULDS8KgqlzhIdLj_5jKFStsRw/exec
         run: |
           python - <<'PY'
-          import base64, json, os, re, urllib.parse, urllib.request
+          import base64, json, os, re, urllib.parse, urllib.request, urllib.error
 
           api = os.environ['HEADSHOT_API_URL']
           public_base = 'https://clefrontdesk.github.io/email-signature-generator/headshots/'
@@ -44,25 +44,48 @@ jobs:
 
           manifest = {}
           normalized = {}
+          skipped = []
+
           for item in library:
               name = str(item.get('name', '')).strip()
               file_id = str(item.get('fileId', '')).strip()
               if not name or not file_id:
+                  skipped.append(name or '(unnamed item)')
                   continue
 
-              result = get_json(api + '?fileId=' + urllib.parse.quote(file_id))
+              try:
+                  result = get_json(api + '?fileId=' + urllib.parse.quote(file_id))
+              except urllib.error.HTTPError as exc:
+                  print(f'Skipping {name}: API returned HTTP {exc.code}')
+                  skipped.append(name)
+                  continue
+              except Exception as exc:
+                  print(f'Skipping {name}: {type(exc).__name__}: {exc}')
+                  skipped.append(name)
+                  continue
+
               image_url = result.get('imageUrl', '')
               match = re.match(r'^data:image/([A-Za-z0-9.+-]+);base64,(.+)$', image_url, re.S)
               if not match:
                   print('Skipping invalid image:', name)
+                  skipped.append(name)
                   continue
 
               subtype, payload = match.groups()
               ext = 'jpg' if subtype.lower() in ('jpeg', 'jpg') else subtype.lower()
               stem = re.sub(r'[^A-Za-z0-9]+', '_', name).strip('_')
               filename = f'{stem}.{ext}'
+
+              try:
+                  image_bytes = base64.b64decode(payload, validate=True)
+              except Exception as exc:
+                  print(f'Skipping {name}: invalid base64 ({exc})')
+                  skipped.append(name)
+                  continue
+
               with open(os.path.join('headshots', filename), 'wb') as f:
-                  f.write(base64.b64decode(payload))
+                  f.write(image_bytes)
+
               manifest[name] = filename
               normalized[key(name)] = filename
               print('Saved', filename)
@@ -73,16 +96,31 @@ jobs:
           if os.path.exists('agents.json'):
               with open('agents.json', encoding='utf-8') as f:
                   roster = json.load(f)
+
               matched = 0
+              unmatched = []
               for agent in roster.get('agents', []):
                   filename = normalized.get(key(agent.get('name', '')))
                   if filename:
                       agent['headshot'] = public_base + filename
                       matched += 1
+                  elif not agent.get('headshot'):
+                      unmatched.append(agent.get('name', ''))
+
               with open('agents.json', 'w', encoding='utf-8') as f:
                   json.dump(roster, f, indent=2, ensure_ascii=False)
                   f.write('\n')
+
               print(f'Matched {matched} roster profiles to hosted headshots')
+              if unmatched:
+                  print('Roster profiles without a matched headshot:')
+                  for name in unmatched:
+                      print(' -', name)
+
+          if skipped:
+              print(f'Skipped {len(skipped)} stale/invalid headshot record(s):')
+              for name in skipped:
+                  print(' -', name)
           PY
 
       - name: Commit updated headshots and roster mapping
