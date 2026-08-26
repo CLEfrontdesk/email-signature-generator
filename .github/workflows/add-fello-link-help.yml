@@ -1,0 +1,32 @@
+name: Add Fello link help
+
+on:
+  push:
+    paths:
+      - '.github/workflows/add-fello-link-help.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Clarify personal Fello home value link
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('generator.html')
+          s = p.read_text()
+          old = '<label>Home Value Link</label><input id="homeValue" value="https://clifflewisrealtor.hifello.com/lp/69b814f94890ea28ee126185">'
+          new = '<label>What\'s My Home Worth? Link</label><input id="homeValue" value="https://clifflewisrealtor.hifello.com/lp/69b814f94890ea28ee126185"><div class="hint">Optional: paste your personal Fello home value link here. If you leave this alone, the CLE default link will be used.</div>'
+          if old not in s:
+              raise SystemExit('Target text not found')
+          p.write_text(s.replace(old, new, 1))
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add generator.html
+          git commit -m "Clarify personal Fello home value link"
+          git push
