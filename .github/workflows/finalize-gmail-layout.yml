@@ -1,0 +1,34 @@
+name: Finalize Gmail signature layout
+
+on:
+  push:
+    paths:
+      - '.github/workflows/finalize-gmail-layout.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch Gmail signature layout
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('generator.html')
+          s = p.read_text()
+          old = """return `<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-family:Arial,Helvetica,sans-serif;color:#39444f;border-collapse:separate;border-spacing:0;background:#fff;width:680px;max-width:680px;border:1px solid #d9e0e6;border-radius:12px\"><tr><td style=\"padding:0\">${top}<div style=\"height:1px;background:#d9e0e6\"></div><div style=\"padding:13px 14px 0\">${logoRow(x)}</div>${x.homeValue?`<div style=\"padding:12px 14px 0\"><a href=\"${x.homeValue}\" style=\"display:inline-block;background:#0e3764;color:#fff;text-decoration:none;padding:9px 15px;border-radius:5px;font-size:12px;font-weight:700\">What's My Home Worth?</a></div>`:''}<div style=\"padding:0 14px 12px\">${fine}</div></td></tr></table>`}"""
+          new = """const card=`<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-family:Arial,Helvetica,sans-serif;color:#39444f;border-collapse:separate;border-spacing:0;background:#fff;width:470px;max-width:470px;border:1px solid #d9e0e6;border-radius:12px\"><tr><td style=\"padding:0\">${top}<div style=\"height:1px;background:#d9e0e6\"></div><div style=\"padding:13px 14px 0\">${logoRow(x)}</div>${x.homeValue?`<div style=\"padding:12px 14px 14px\"><a href=\"${x.homeValue}\" style=\"display:inline-block;background:#0e3764;color:#fff;text-decoration:none;padding:9px 15px;border-radius:5px;font-size:12px;font-weight:700\">What's My Home Worth?</a></div>`:''}</td></tr></table>`;return `<div style=\"font-family:Arial,Helvetica,sans-serif;color:#39444f\">${card}<div style=\"width:680px;max-width:680px;padding:0 14px\">${fine}</div></div>`}"""
+          if old not in s:
+              raise SystemExit('Expected Gmail layout block not found')
+          p.write_text(s.replace(old, new, 1))
+          PY
+      - name: Commit final layout
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add generator.html
+          git diff --cached --quiet || git commit -m "Compact Gmail signature card and separate fine print"
+          git push
