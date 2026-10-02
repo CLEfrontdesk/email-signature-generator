@@ -1,15 +1,26 @@
-name: Sync headshots
+name: Sync Signature Data
 
 on:
   push:
+    branches: [main]
     paths:
       - '.github/workflows/sync-headshots.yml'
+      - 'scripts/sync_roster.py'
   workflow_dispatch:
+    inputs:
+      allow_large_removal:
+        description: 'Allow removal of more than 20% of profiles after reviewing the roster'
+        type: boolean
+        default: false
   schedule:
     - cron: '15 12 * * 1'
 
 permissions:
   contents: write
+
+concurrency:
+  group: signature-data-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   sync:
@@ -19,6 +30,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Rebuild profiles from the CLE roster
+        env:
+          ROSTER_API_URL: ${{ vars.ROSTER_API_URL || 'https://script.google.com/macros/s/AKfycbw2Jg6Bt9AG1ecw-OjNmMZy8pirZAyJY7ws0IBNhYLRkt3Rc8zyFuBp2A8Zn-yv3BGhXQ/exec' }}
+          ALLOW_LARGE_REMOVAL: ${{ inputs.allow_large_removal }}
+        run: |
+          if [ "$ALLOW_LARGE_REMOVAL" = "true" ]; then
+            python scripts/sync_roster.py --allow-large-removal
+          else
+            python scripts/sync_roster.py
+          fi
 
       - name: Download headshots from CLE headshot API
         env:
@@ -126,11 +148,11 @@ jobs:
       - name: Commit updated headshots and roster mapping
         run: |
           if git diff --quiet -- headshots agents.json && [ -z "$(git status --porcelain headshots agents.json)" ]; then
-            echo "No headshot changes"
+            echo "No signature data changes"
             exit 0
           fi
           git config user.name "CLE Headshot Sync"
           git config user.email "frontdesk@cliffmlewis.com"
           git add headshots agents.json
-          git commit -m "Sync agent headshots"
+          git commit -m "Sync signature roster and headshots"
           git push

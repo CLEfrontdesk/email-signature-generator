@@ -12,7 +12,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Adam_Fisher.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Adam_Fisher.jpg",
+      "apply_url": ""
     },
     {
       "name": "Alesia Coulter",
@@ -23,9 +24,10 @@
       "office": "Allentown",
       "languages": "English",
       "title": "Realtor",
-      "instagram_handle": "@Livingbylish",
+      "instagram_handle": "Livingbylish",
       "instagram_url": "https://www.instagram.com/Livingbylish/",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Alesia_Coulter.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Alesia_Coulter.jpg",
+      "apply_url": ""
     },
     {
       "name": "Alexandra Herman",
@@ -38,7 +40,8 @@
       "title": "Realtor",
       "instagram_handle": "alexandrahurff",
       "instagram_url": "https://www.instagram.com/alexandrahurff/",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Alexandra_Herman.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Alexandra_Herman.jpg",
+      "apply_url": ""
     },
     {
       "name": "Allie Bennicas",
@@ -51,7 +54,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Allie_Bennicas.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Allie_Bennicas.jpg",
+      "apply_url": ""
     },
     {
       "name": "Andrea Palmer",
@@ -64,20 +68,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Andrea_Palmer.jpg"
-    },
-    {
-      "name": "Ashley Fasulo",
-      "email": "ashleyF@cliffmlewis.com",
-      "phone": "484-506-3480",
-      "license": "",
-      "nmls": "",
-      "office": "Allentown",
-      "languages": "English/Spanish",
-      "title": "Recruiter",
-      "instagram_handle": "",
-      "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Ashley_Fasulo.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Andrea_Palmer.jpg",
+      "apply_url": ""
     },
     {
       "name": "Ashley Menio",
@@ -90,7 +82,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Ashley_Menio.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Ashley_Menio.jpg",
+      "apply_url": ""
     },
     {
       "name": "Asia Smith",
@@ -103,7 +96,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Asia_Smith.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Asia_Smith.jpg",
+      "apply_url": ""
     },
     {
       "name": "Barry Lewis",
@@ -116,7 +110,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Barry_Lewis.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Barry_Lewis.jpg",
+      "apply_url": ""
     },
     {
       "name": "Bre Bradley",
@@ -129,7 +124,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Bre_Bradley.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Bre_Bradley.jpg",
+      "apply_url": ""
     },
     {
       "name": "Carla Buezo",
@@ -142,7 +138,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": ""
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "Carol Landis-Pierce",
@@ -155,7 +152,8 @@
       "title": "Realtor",
       "instagram_handle": "carol_pierce",
       "instagram_url": "https://www.instagram.com/carol_pierce/",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Carol_Landis_Pierce.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Carol_Landis_Pierce.jpg",
+      "apply_url": ""
     },
     {
       "name": "Chelsea Vassa",
@@ -168,11 +166,12 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Chelsea_Vassa.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Chelsea_Vassa.jpg",
+      "apply_url": ""
     },
     {
       "name": "Cliff Lewis",
-      "email": "Cliff@cliffmlewis.com",
+      "email": "cliff@cliffmlewis.com",
       "phone": "610-509-9834",
       "license": "",
       "nmls": "",
@@ -181,7 +180,8 @@
       "title": "BOSS/CEO",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Cliff_Lewis.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Cliff_Lewis.jpg",
+      "apply_url": ""
     },
     {
       "name": "Dan Bostelman",
@@ -194,7 +194,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Dan_Bostelman.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Dan_Bostelman.jpg",
+      "apply_url": ""
     },
     {
       "name": "Dashawnn Armstead",
@@ -207,7 +208,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Dashawnn_Armstead.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Dashawnn_Armstead.jpg",
+      "apply_url": ""
     },
     {
       "name": "Dave Mumford",
@@ -220,7 +222,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Dave_Mumford.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Dave_Mumford.jpg",
+      "apply_url": ""
     },
     {
       "name": "David Emili, Jr.",
@@ -233,7 +236,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": ""
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "DeeDee Diberardino",
@@ -246,20 +250,22 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/DeeDee_Diberardino.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/DeeDee_Diberardino.jpg",
+      "apply_url": ""
     },
     {
       "name": "Denise Thomas",
       "email": "denise@cliffmlewis.com",
       "phone": "973-262-1887",
-      "license": "",
+      "license": "2566961",
       "nmls": "",
       "office": "Frenchtown",
       "languages": "English",
       "title": "2566961",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Denise_Thomas.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Denise_Thomas.jpg",
+      "apply_url": ""
     },
     {
       "name": "Devin Zydyk",
@@ -272,7 +278,8 @@
       "title": "Realtor",
       "instagram_handle": "natdevo_",
       "instagram_url": "https://www.instagram.com/natdevo_/",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Devin_Zydyk.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Devin_Zydyk.jpg",
+      "apply_url": ""
     },
     {
       "name": "Eddie Moussa",
@@ -285,20 +292,22 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Eddie_Moussa.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Eddie_Moussa.jpg",
+      "apply_url": ""
     },
     {
       "name": "Emanuel DeJesus",
       "email": "manny@cliffmlewis.com",
       "phone": "321-479-7143",
-      "license": "",
+      "license": "PA-AB069043",
       "nmls": "",
       "office": "Allentown",
       "languages": "English, Spanish",
       "title": "PA-AB069043",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Emanuel_DeJesus.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Emanuel_DeJesus.jpg",
+      "apply_url": ""
     },
     {
       "name": "Gabriella Buezo",
@@ -311,7 +320,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Gabriella_Buezo.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Gabriella_Buezo.jpg",
+      "apply_url": ""
     },
     {
       "name": "George Mosellie",
@@ -324,7 +334,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/George_Mosellie.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/George_Mosellie.jpg",
+      "apply_url": ""
     },
     {
       "name": "George Zumas",
@@ -335,9 +346,10 @@
       "office": "Allentown",
       "languages": "English",
       "title": "Realtor",
-      "instagram_handle": "George Zumas",
-      "instagram_url": "https://www.instagram.com/George Zumas/",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/George_Zumas.jpg"
+      "instagram_handle": "",
+      "instagram_url": "",
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/George_Zumas.jpg",
+      "apply_url": ""
     },
     {
       "name": "Gia Ordaneza",
@@ -350,7 +362,8 @@
       "title": "Virtual Assistant",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": ""
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "Hajar Bensaid",
@@ -363,7 +376,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": ""
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "Heather Fehr",
@@ -376,33 +390,8 @@
       "title": "Realtor",
       "instagram_handle": "heatherhomehunter",
       "instagram_url": "https://www.instagram.com/heatherhomehunter/",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Heather_Fehr.jpg"
-    },
-    {
-      "name": "Jared Blair",
-      "email": "jared@cliffmlewis.com",
-      "phone": "908-878-1119",
-      "license": "RS354856",
-      "nmls": "2578349 ",
-      "office": "Allentown",
-      "languages": "English",
-      "title": "Realtor",
-      "instagram_handle": "jared.blair",
-      "instagram_url": "https://www.instagram.com/jared.blair/",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Jared_Blair.jpg"
-    },
-    {
-      "name": "Jash Jabano",
-      "email": "Jash@cliffmlewis.com",
-      "phone": "610-439-9922",
-      "license": "",
-      "nmls": "",
-      "office": "Virtual",
-      "languages": "English",
-      "title": "Virtual Assistant",
-      "instagram_handle": "",
-      "instagram_url": "",
-      "headshot": ""
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Heather_Fehr.jpg",
+      "apply_url": ""
     },
     {
       "name": "Jack Ligenza",
@@ -415,7 +404,36 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Jack_Ligenza.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Jack_Ligenza.jpg",
+      "apply_url": ""
+    },
+    {
+      "name": "Jared Blair",
+      "email": "jared@cliffmlewis.com",
+      "phone": "908-878-1119",
+      "license": "RS354856",
+      "nmls": "2578349",
+      "office": "Allentown",
+      "languages": "English",
+      "title": "Realtor",
+      "instagram_handle": "jared.blair",
+      "instagram_url": "https://www.instagram.com/jared.blair/",
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Jared_Blair.jpg",
+      "apply_url": ""
+    },
+    {
+      "name": "Jash Jabano",
+      "email": "jash@cliffmlewis.com",
+      "phone": "610-439-9922",
+      "license": "",
+      "nmls": "",
+      "office": "Virtual",
+      "languages": "English",
+      "title": "Virtual Assistant",
+      "instagram_handle": "",
+      "instagram_url": "",
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "Jessica Byrnes",
@@ -428,11 +446,12 @@
       "title": "Realtor",
       "instagram_handle": "sweetsweetjess",
       "instagram_url": "https://www.instagram.com/sweetsweetjess/",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Jessica_Byrnes.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Jessica_Byrnes.jpg",
+      "apply_url": ""
     },
     {
       "name": "Jessica Distler",
-      "email": "JessicaD@cliffmlewis.com",
+      "email": "jessicad@cliffmlewis.com",
       "phone": "484-632-6042",
       "license": "RS347041",
       "nmls": "",
@@ -441,7 +460,8 @@
       "title": "Realtor",
       "instagram_handle": "JessicaDistlerRealtor",
       "instagram_url": "https://www.instagram.com/JessicaDistlerRealtor/",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Jessica_Distler.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Jessica_Distler.jpg",
+      "apply_url": ""
     },
     {
       "name": "John Laboy",
@@ -454,7 +474,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/John_Laboy.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/John_Laboy.jpg",
+      "apply_url": ""
     },
     {
       "name": "Jonathan J Shaw",
@@ -467,7 +488,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": ""
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "Jonathan Valera Barahona",
@@ -480,11 +502,12 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": ""
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "Joseph Thompson III",
-      "email": "Joseph@cliffmlewis.com",
+      "email": "joseph@cliffmlewis.com",
       "phone": "484-795-6814",
       "license": "RS353460",
       "nmls": "",
@@ -493,7 +516,8 @@
       "title": "Realtor",
       "instagram_handle": "Jwillt3",
       "instagram_url": "https://www.instagram.com/Jwillt3/",
-      "headshot": ""
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "Kathy Radle",
@@ -506,7 +530,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Kathy_Radle.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Kathy_Radle.jpg",
+      "apply_url": ""
     },
     {
       "name": "Kenny Rosado",
@@ -519,11 +544,12 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Kenny_Rosado.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Kenny_Rosado.jpg",
+      "apply_url": ""
     },
     {
       "name": "Kerry Bassett",
-      "email": "Kerry@cliffmlewis.com",
+      "email": "kerry@cliffmlewis.com",
       "phone": "610-551-9972",
       "license": "RS326711",
       "nmls": "",
@@ -532,7 +558,8 @@
       "title": "Realtor",
       "instagram_handle": "kerryfassettbassett",
       "instagram_url": "https://www.instagram.com/kerryfassettbassett/",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Kerry_Bassett.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Kerry_Bassett.jpg",
+      "apply_url": ""
     },
     {
       "name": "Kerry Nobles",
@@ -545,7 +572,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Kerry_Nobles.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Kerry_Nobles.jpg",
+      "apply_url": ""
     },
     {
       "name": "Kim Drogo",
@@ -558,7 +586,8 @@
       "title": "Realtor",
       "instagram_handle": "Allentown",
       "instagram_url": "https://www.instagram.com/Allentown/",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Kim_Drogo.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Kim_Drogo.jpg",
+      "apply_url": ""
     },
     {
       "name": "Lamont Whitest",
@@ -571,7 +600,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": ""
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "Larry Kish",
@@ -584,7 +614,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Larry_Kish.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Larry_Kish.jpg",
+      "apply_url": ""
     },
     {
       "name": "Lindsie Henninger",
@@ -597,7 +628,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Lindsie_Henninger.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Lindsie_Henninger.jpg",
+      "apply_url": ""
     },
     {
       "name": "Liz Meilinger",
@@ -610,7 +642,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Liz_Meilinger.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Liz_Meilinger.jpg",
+      "apply_url": ""
     },
     {
       "name": "Malka Gutin",
@@ -623,7 +656,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": ""
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "Mandy Morgan",
@@ -636,7 +670,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Mandy_Morgan.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Mandy_Morgan.jpg",
+      "apply_url": ""
     },
     {
       "name": "Marc Aldwin Dela Cruz",
@@ -649,7 +684,8 @@
       "title": "Virtual Assistant",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": ""
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "Marina Mikhalik",
@@ -662,7 +698,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Marina_Mikhalik.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Marina_Mikhalik.jpg",
+      "apply_url": ""
     },
     {
       "name": "Mike Bostelman",
@@ -675,7 +712,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Mike_Bostelman.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Mike_Bostelman.jpg",
+      "apply_url": ""
     },
     {
       "name": "Mike Dragotta",
@@ -688,7 +726,8 @@
       "title": "Realtor",
       "instagram_handle": "realtordragottamike",
       "instagram_url": "https://www.instagram.com/realtordragottamike/",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Mike_Dragotta.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Mike_Dragotta.jpg",
+      "apply_url": ""
     },
     {
       "name": "Mina Agauiby",
@@ -701,7 +740,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": ""
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "Nick Smith",
@@ -714,7 +754,8 @@
       "title": "C.O.O.",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Nick_Smith.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Nick_Smith.jpg",
+      "apply_url": ""
     },
     {
       "name": "Parth Patel",
@@ -727,7 +768,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Parth_Patel.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Parth_Patel.jpg",
+      "apply_url": ""
     },
     {
       "name": "Paula Zumas",
@@ -740,7 +782,8 @@
       "title": "Realtor",
       "instagram_handle": "paulazumas",
       "instagram_url": "https://www.instagram.com/paulazumas/",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Paula_Zumas.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Paula_Zumas.jpg",
+      "apply_url": ""
     },
     {
       "name": "Phillip Morgan",
@@ -753,7 +796,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Phillip_Morgan.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Phillip_Morgan.jpg",
+      "apply_url": ""
     },
     {
       "name": "Stuart Greene",
@@ -766,7 +810,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Stuart_Greene.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Stuart_Greene.jpg",
+      "apply_url": ""
     },
     {
       "name": "Taunya Belton",
@@ -779,7 +824,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Taunya_Belton.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Taunya_Belton.jpg",
+      "apply_url": ""
     },
     {
       "name": "Theresa Heller",
@@ -792,7 +838,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Theresa_Heller.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Theresa_Heller.jpg",
+      "apply_url": ""
     },
     {
       "name": "Tiffany Pineda",
@@ -805,7 +852,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Tiffany_Pineda.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Tiffany_Pineda.jpg",
+      "apply_url": ""
     },
     {
       "name": "Tiffany Schantz",
@@ -818,7 +866,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": ""
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "Tyler James",
@@ -831,7 +880,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Tyler_James.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Tyler_James.jpg",
+      "apply_url": ""
     },
     {
       "name": "Van Maghuyop",
@@ -844,7 +894,8 @@
       "title": "Virtual Assistant",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": ""
+      "headshot": "",
+      "apply_url": ""
     },
     {
       "name": "Vittoria Balletta",
@@ -857,7 +908,8 @@
       "title": "Realtor",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Vittoria_Balletta.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Vittoria_Balletta.jpg",
+      "apply_url": ""
     },
     {
       "name": "Zach Svetik",
@@ -870,7 +922,12 @@
       "title": "Cliff Assistant",
       "instagram_handle": "",
       "instagram_url": "",
-      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Zach_Svetik.jpg"
+      "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Zach_Svetik.jpg",
+      "apply_url": ""
     }
-  ]
+  ],
+  "source": {
+    "spreadsheetId": "1a44VfxcgighbzytEgV-Apc261bt5-5mlgBZ7pFWdssM",
+    "sheet": "Everyone"
+  }
 }
