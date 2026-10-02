@@ -48,7 +48,7 @@ def rebuild(payload, previous, manifest, allow_large_removal=False):
         if role:
             license_number = ''
         nmls = text(row.get('nmls'))
-        if nmls and not nmls.isascii() or nmls and not nmls.isdigit():
+        if nmls and (not nmls.isascii() or not nmls.isdigit()):
             raise ValueError(f'Row {number} has a nonnumeric NMLS number')
         if nmls in nmls_owners:
             print(f'Warning: NMLS #{nmls} occurs more than once; verify it in the roster', file=sys.stderr)

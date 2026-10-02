@@ -23,7 +23,7 @@ Optional columns named `Title` and `Apply Now URL` can be appended to Everyone w
 
 The roster requires Google authentication. GitHub cannot read it directly. Keep the existing headshot API intact and deploy `apps-script/roster-api.gs` as a **separate** Apps Script web app:
 
-1. Sign into Apps Script with an account that can read the roster. Create a project named `CLE Signature Roster API` and paste the file into Code.gs.
+1. Sign into Apps Script with an account that can read the roster. Create a project named `CLE Signature Roster API` and paste the file into Code.gs. In Project Settings, show the manifest, then use `apps-script/appsscript.json` so the script requests only read access to spreadsheets.
 2. Deploy a web app that executes as the owner and allows Anyone to access the approved professional signature fields. Complete Google's authorization in your own account.
 3. Add its deployed `/exec` URL as the GitHub repository **Actions variable** `ROSTER_API_URL` under Settings > Secrets and variables > Actions > Variables.
 4. Merge this change, then run **Actions > Sync Signature Data > Run workflow**. Check that the roster step completes and verify the published generator's dropdown.
