@@ -5,7 +5,8 @@ const vm=require('node:vm');
 const path=require('node:path');
 function exportRows(rows){
   const context=vm.createContext({
-    SpreadsheetApp:{openById:()=>({getSheetByName:()=>({getLastRow:()=>rows.length,getDataRange:()=>({getDisplayValues:()=>rows.map(row=>[...row])})})})},
+    Sheets:{Spreadsheets:{Values:{get:()=>({values:rows.map(row=>[...row])})}}},
+    console:{error:()=>{}},
     ContentService:{MimeType:{JSON:'json'},createTextOutput:content=>({setMimeType:()=>content})}
   });
   vm.runInContext(fs.readFileSync(path.join(__dirname,'../apps-script/roster-api.gs'),'utf8'),context);

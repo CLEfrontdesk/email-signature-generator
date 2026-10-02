@@ -33,13 +33,10 @@ jobs:
 
       - name: Rebuild profiles from the CLE roster
         env:
-          ROSTER_API_URL: ${{ vars.ROSTER_API_URL }}
+          ROSTER_API_URL: ${{ vars.ROSTER_API_URL || 'https://script.google.com/macros/s/AKfycbw2Jg6Bt9AG1ecw-OjNmMZy8pirZAyJY7ws0IBNhYLRkt3Rc8zyFuBp2A8Zn-yv3BGhXQ/exec' }}
           ALLOW_LARGE_REMOVAL: ${{ inputs.allow_large_removal }}
         run: |
-          if [ -z "$ROSTER_API_URL" ]; then
-            echo "::warning::Roster sync is not activated. Set the ROSTER_API_URL repository variable. Existing profiles will be retained while headshots sync."
-            echo "Roster sync NOT ACTIVE: configure ROSTER_API_URL. Headshots still sync." >> "$GITHUB_STEP_SUMMARY"
-          elif [ "$ALLOW_LARGE_REMOVAL" = "true" ]; then
+          if [ "$ALLOW_LARGE_REMOVAL" = "true" ]; then
             python scripts/sync_roster.py --allow-large-removal
           else
             python scripts/sync_roster.py

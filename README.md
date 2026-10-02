@@ -19,16 +19,18 @@ Use [the main generator](https://clefrontdesk.github.io/email-signature-generato
 
 Optional columns named `Title` and `Apply Now URL` can be appended to Everyone when needed. The exporter locates them by header. With no Title, recognized staff labels in License # become titles; otherwise an existing profile title is retained, with Realtor as the new-profile default. Birthdays, join dates, group membership and internal system fields are never exported.
 
-## One-time activation
+## Deployed roster API
 
-The roster requires Google authentication. GitHub cannot read it directly. Keep the existing headshot API intact and deploy `apps-script/roster-api.gs` as a **separate** Apps Script web app:
+The roster requires Google authentication. GitHub reads only the approved signature fields through the separate [CLE Signature Roster API project](https://script.google.com/home/projects/1-F8FByRh75VSRG0cADKrmxrE2Qo0A5ZlloEUmciZK9NDY2ccpnZBvmvo/edit), deployed October 2, 2026. The workflow contains its deployed URL; no repository variable is required. `ROSTER_API_URL` can optionally override it when replacing the deployment.
+
+To recreate or update the exporter:
 
 1. Sign into Apps Script with an account that can read the roster. Create a project named `CLE Signature Roster API` and paste the file into Code.gs. In Project Settings, show the manifest, then use `apps-script/appsscript.json` so the script requests only read access to spreadsheets.
 2. Deploy a web app that executes as the owner and allows Anyone to access the approved professional signature fields. Complete Google's authorization in your own account.
-3. Add its deployed `/exec` URL as the GitHub repository **Actions variable** `ROSTER_API_URL` under Settings > Secrets and variables > Actions > Variables.
-4. Merge this change, then run **Actions > Sync Signature Data > Run workflow**. Check that the roster step completes and verify the published generator's dropdown.
+3. Update the existing deployment to a new version to keep its URL. If creating a replacement deployment, set its `/exec` URL as the GitHub repository **Actions variable** `ROSTER_API_URL` under Settings > Secrets and variables > Actions > Variables.
+4. Run **Actions > Sync Signature Data > Run workflow**. Check that the roster step completes and verify the published generator's dropdown.
 
-Until the variable is configured, the workflow explicitly reports `Roster sync NOT ACTIVE` and keeps syncing headshots using existing profiles. Once configured, any roster fetch/validation failure stops the workflow before committing. Never claim roster automation is active based only on the one-time `agents.json` refresh.
+Any roster fetch/validation failure stops the workflow before committing. The previous published profiles remain intact. The new workflow starts on merge because its workflow file changed, and retains its manual and Monday triggers.
 
 ## Maintenance after activation
 
