@@ -44,7 +44,7 @@ jobs:
 
       - name: Download headshots from CLE headshot API
         env:
-          HEADSHOT_API_URL: https://script.google.com/macros/s/AKfycbypOcGuzVedmJLuIRULgJ5Jv8TjR17Jl6jFYTxnBfvbUULDS8KgqlzhIdLj_5jKFStsRw/exec
+          HEADSHOT_API_URL: https://script.google.com/a/macros/cliffmlewis.com/s/AKfycbyxMlkcU5SuFu9Jchmg8RMo92imdGG6eCN-Z6xfZ0V37evUkS-oAy60-Kae_C6WPjgl2g/exec
         run: |
           python - <<'PY'
           import base64, json, os, re, urllib.parse, urllib.request, urllib.error
