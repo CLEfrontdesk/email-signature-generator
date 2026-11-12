@@ -61,7 +61,15 @@ jobs:
           def key(value):
               return re.sub(r'[^a-z0-9]+', '', str(value).lower())
 
-          library = get_json(api).get('headshots', [])
+          try:
+              library = get_json(api).get('headshots', [])
+          except urllib.error.HTTPError as exc:
+              print(f'Headshot API unavailable (HTTP {exc.code}). Preserving existing headshots and continuing with roster sync.')
+              raise SystemExit(0)
+          except Exception as exc:
+              print(f'Headshot API unavailable ({type(exc).__name__}: {exc}). Preserving existing headshots and continuing with roster sync.')
+              raise SystemExit(0)
+
           print(f'Found {len(library)} headshots')
 
           manifest = {}
