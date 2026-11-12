@@ -590,20 +590,6 @@
       "apply_url": ""
     },
     {
-      "name": "Lamont Whitest",
-      "email": "lamont@cliffmlewis.com",
-      "phone": "267-248-5508",
-      "license": "RS370145",
-      "nmls": "",
-      "office": "Newtown",
-      "languages": "English",
-      "title": "Realtor",
-      "instagram_handle": "",
-      "instagram_url": "",
-      "headshot": "",
-      "apply_url": ""
-    },
-    {
       "name": "Larry Kish",
       "email": "larry@cliffmlewis.com",
       "phone": "610-844-4517",
@@ -730,20 +716,6 @@
       "apply_url": ""
     },
     {
-      "name": "Mina Agauiby",
-      "email": "mina@cliffmlewis.com",
-      "phone": "215-939-0569",
-      "license": "RS369356",
-      "nmls": "",
-      "office": "Allentown",
-      "languages": "English/Arabic",
-      "title": "Realtor",
-      "instagram_handle": "",
-      "instagram_url": "",
-      "headshot": "",
-      "apply_url": ""
-    },
-    {
       "name": "Nick Smith",
       "email": "nick@cliffmlewis.com",
       "phone": "610-751-8280",
@@ -769,6 +741,20 @@
       "instagram_handle": "",
       "instagram_url": "",
       "headshot": "https://clefrontdesk.github.io/email-signature-generator/headshots/Parth_Patel.jpg",
+      "apply_url": ""
+    },
+    {
+      "name": "Paul Cooper",
+      "email": "paul@cliffmlewis.com",
+      "phone": "484-895-8614",
+      "license": "RS384115",
+      "nmls": "",
+      "office": "Allentown",
+      "languages": "English",
+      "title": "Realtor",
+      "instagram_handle": "",
+      "instagram_url": "",
+      "headshot": "",
       "apply_url": ""
     },
     {
