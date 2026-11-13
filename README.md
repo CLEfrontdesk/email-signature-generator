@@ -50,7 +50,15 @@ Both roster-based generators share `mortgage.js`. With mortgage included and a n
 
 The legacy `index.html` and `fub.html` are manual builders and are not the roster-based generator. Their behavior is unchanged.
 
-## Verification
+## Headshot position
+
+Both roster generators offer **Headshot position** below the profile fields. Move toward **Show top / hair** to retain more of the top of a portrait, or reset to the original center crop. The position is remembered per agent email in the current browser, shared between the two generators on the same site. Blocked browser storage still permits adjustment for the current visit.
+
+The preview and copied HTML use the same public, square JPEG URL, not a data URL or CSS positioning. Images retain their existing display size and shape. `scripts/build_headshot_crops.py` creates eleven 240-pixel square crops from each hosted source photo. Source files and roster data are not modified. The existing sync builds crops after downloading headshots, and commits them with the roster. Old hashed crops are retained so signatures already in use keep working after a photo is replaced. Landscape and square photos have no excess vertical area to reposition; a crop cannot restore content absent from the original image.
+
+If crop data is unavailable, the original hosted image remains available and the adjustment is disabled with an explanation. Gmail, FUB and Vacation content, contact links and mortgage rules otherwise retain their existing behavior. Send yourself a test email after installing a signature to confirm your email client's final rendering.
+
+## Verification commands
 
 Run `node --test tests/*.test.cjs` and `python -m unittest discover -s tests -p 'test_*.py'`. GitHub checks both on pull requests. Tests cover all six signature variants, mortgage on/off, link escaping, profile switching, roster additions/removals, retained headshots, validation, and exporter field privacy.
 

@@ -153,14 +153,19 @@ jobs:
                   print(' -', name)
           PY
 
+      - name: Build email-safe headshot positions
+        run: |
+          python -m pip install Pillow==11.3.0
+          python scripts/build_headshot_crops.py
+
       - name: Commit updated headshots and roster mapping
         run: |
-          if git diff --quiet -- headshots agents.json && [ -z "$(git status --porcelain headshots agents.json)" ]; then
+          if git diff --quiet -- headshots agents.json headshot-crops && [ -z "$(git status --porcelain headshots agents.json headshot-crops)" ]; then
             echo "No signature data changes"
             exit 0
           fi
           git config user.name "CLE Headshot Sync"
           git config user.email "frontdesk@cliffmlewis.com"
-          git add headshots agents.json
+          git add headshots agents.json headshot-crops
           git commit -m "Sync signature roster and headshots"
           git push

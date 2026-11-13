@@ -12,6 +12,7 @@ function page(file) {
   };
   const context = vm.createContext({URL, document:{getElementById:element,querySelectorAll:()=>[]},fetch:()=>new Promise(()=>{})});
   vm.runInContext(fs.readFileSync(path.join(root,'mortgage.js'),'utf8'),context);
+  vm.runInContext(fs.readFileSync(path.join(root,'headshot-position.js'),'utf8'),context);
   const html = fs.readFileSync(path.join(root,file),'utf8');
   vm.runInContext(html.match(/<script>([\s\S]*?)<\/script>/)[1],context);
   return {context,element,run:expression=>vm.runInContext(expression,context)};
