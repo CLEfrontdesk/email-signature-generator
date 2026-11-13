@@ -34,6 +34,7 @@ const fs=require('node:fs'), http=require('node:http'), path=require('node:path'
       const src=await image.getAttribute('src');assert.match(src,/-0.jpg$/);
       const box=await image.boundingBox();assert.equal(box.width,file==='generator.html'?104:120);
       await page.click('#copyBtn');
+      await page.waitForFunction(()=>document.querySelector('#copyBtn').textContent==='Copied!');
       const copied=await page.evaluate(async()=>{const items=await navigator.clipboard.read();return (await items[0].getType('text/html')).text();});
       assert.ok(copied.includes(src));assert.ok(!copied.includes('object-position'));
       assert.ok(copied.includes('mailto:paul@cliffmlewis.com'));
@@ -41,8 +42,25 @@ const fs=require('node:fs'), http=require('node:http'), path=require('node:path'
       await page.selectOption('#agentSelect',paul);
       assert.equal(await page.locator('#headshotPosition').inputValue(),'0');
       await page.click('#headshotPositionReset');assert.equal(await page.locator('#headshotPosition').inputValue(),'50');
+      const expected={classic:'rgb(247, 249, 251)',blue:'rgb(232, 241, 251)',cream:'rgb(255, 244, 223)',sage:'rgb(234, 242, 232)',lavender:'rgb(240, 234, 250)',black:'rgb(23, 25, 29)'};
+      for(const [theme,color] of Object.entries(expected)){
+        await page.selectOption('#signatureColor',theme);
+        const header=page.locator('[data-signature-header]');
+        if(theme!=='classic'||file==='generator.html')assert.equal(await header.evaluate(el=>getComputedStyle(el).backgroundColor),color);
+      }
+      assert.equal(await page.locator('[data-signature-header] a[href^="mailto:"]').evaluate(el=>getComputedStyle(el).color),'rgb(169, 215, 255)');
+      await page.click('#copyBtn');
+      await page.waitForFunction(()=>document.querySelector('#copyBtn').textContent==='Copied!');
+      const darkCopy=await page.evaluate(async()=>{const items=await navigator.clipboard.read();return (await items[0].getType('text/html')).text();});
+      assert.match(darkCopy,/bgcolor="#17191d"/);assert.match(darkCopy,/rgb\(169, 215, 255\)/);
+      await page.reload();await page.waitForFunction(()=>!document.querySelector('#agentSelect').textContent.includes('Loading roster'));
+      await page.selectOption('#agentSelect',paul);assert.equal(await page.locator('#signatureColor').inputValue(),'black');
+      await page.selectOption('#agentSelect','0');assert.equal(await page.locator('#signatureColor').inputValue(),'classic');
+      await page.selectOption('#agentSelect',paul);assert.equal(await page.locator('#signatureColor').inputValue(),'black');
+      await page.click('[data-tab="fub"]');assert.equal(await page.locator('[data-signature-header]').count(),0);
+      await page.click('[data-tab="gmail"]');
       await page.screenshot({path:path.join(root,'../'+file+'.png'),fullPage:true});
-      console.log(file+': Paul crop, live preview, clipboard URL, dimensions, persistence and reset passed');
+      console.log(file+': crops, six backgrounds, black clipboard colors, profile persistence, and FUB passed');
     }
     assert.deepEqual(errors,[]);
   } finally {if(browser)await browser.close();server.close();}

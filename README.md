@@ -58,6 +58,10 @@ The preview and copied HTML use the same public, square JPEG URL, not a data URL
 
 If crop data is unavailable, the original hosted image remains available and the adjustment is disabled with an explanation. Gmail, FUB and Vacation content, contact links and mortgage rules otherwise retain their existing behavior. Send yourself a test email after installing a signature to confirm your email client's final rendering.
 
+## Signature background colors
+
+Choose **Signature Style > Background color (Gmail)** for Classic, Soft Blue, Warm Cream, Light Sage, Light Lavender, or Black. Classic keeps the original appearance. The chosen color applies to the contact/photo area, with logos and fine print on white. Black uses light text and pale blue links. Colors are copied as inline styles plus an HTML background-color attribute. The choice is saved per agent in the current browser; FUB and Vacation remain plain. Email clients may adjust colors in dark mode.
+
 ## Verification commands
 
 Run `node --test tests/*.test.cjs` and `python -m unittest discover -s tests -p 'test_*.py'`. GitHub checks both on pull requests. Tests cover all six signature variants, mortgage on/off, link escaping, profile switching, roster additions/removals, retained headshots, validation, and exporter field privacy.

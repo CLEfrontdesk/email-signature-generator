@@ -10,7 +10,7 @@ function page(file) {
     if (!elements.has(id)) elements.set(id, {value:'', checked:false, innerHTML:'', textContent:'', classList:{toggle(){},remove(){},add(){}}, addEventListener(){}});
     return elements.get(id);
   };
-  const context = vm.createContext({URL, document:{getElementById:element,querySelectorAll:()=>[]},fetch:()=>new Promise(()=>{})});
+  const context = vm.createContext({CLESignatureColors:{load(){},apply:html=>html},URL, document:{getElementById:element,querySelectorAll:()=>[]},fetch:()=>new Promise(()=>{})});
   vm.runInContext(fs.readFileSync(path.join(root,'mortgage.js'),'utf8'),context);
   vm.runInContext(fs.readFileSync(path.join(root,'headshot-position.js'),'utf8'),context);
   const html = fs.readFileSync(path.join(root,file),'utf8');
